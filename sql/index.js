@@ -3,7 +3,7 @@ const sql = {}
 sql.query = {
 
   // Insertion
-  add_user: 'INSERT INTO username_password (username, password, status, first_name, last_name) VALUES ($1,$2,\'Bronze\',$3,$4)',
+  add_user: 'INSERT INTO username_password (username, password, first_name, last_name) VALUES ($1,$2,\'Bronze\',$3,$4)',
 
 	// Login
 	userpass: 'SELECT * FROM username_password WHERE username=$1',

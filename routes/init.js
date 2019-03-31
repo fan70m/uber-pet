@@ -20,7 +20,7 @@ function initRouter(app) {
   app.get('/dashboard', passport.authMiddleware(), dashboard);
 
 	app.get('/register' , passport.antiMiddleware(), register );
-	app.get('/password' , passport.antiMiddleware(), retrieve );
+	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
 
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
@@ -46,7 +46,6 @@ function basic(req, res, page, other) {
 		user: req.user.username,
 		firstname: req.user.firstname,
 		lastname : req.user.lastname,
-		status   : req.user.status,
 	};
 	if(other) {
 		for(var fld in other) {
@@ -122,7 +121,6 @@ function reg_user(req, res, next) {
 				passwordHash: password,
 				firstname   : firstname,
 				lastname    : lastname,
-				status      : 'Bronze'
 			}, function(err) {
 				if(err) {
 					return res.redirect('/register?reg=fail');

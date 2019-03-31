@@ -30,7 +30,6 @@ function findUser (username, callback) {
 				passwordHash: data.rows[0].password,
 				firstname   : data.rows[0].first_name,
 				lastname    : data.rows[0].last_name,
-				status      : data.rows[0].status
 			});
 		} else {
 			console.error("More than one user?");

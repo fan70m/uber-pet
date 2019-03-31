@@ -1,43 +1,11 @@
-CREATE TABLE student_info (
-	matric  varchar(9) PRIMARY KEY,
-	name    varchar(255) NOT NULL,
-	faculty varchar(3) NOT NULL
-);
-
 CREATE TABLE username_password (
 	username   varchar(9)  PRIMARY KEY,
 	password   varchar(64) NOT NULL,
-	status     varchar(6)  NOT NULL,
 	first_name varchar(64) NOT NULL,
 	last_name  varchar(64) NOT NULL
 );
 
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000001A', 'Leslie Cole', 'SOC');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000002B', 'Myra Morgan', 'SOC');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000003C', 'Raymond Benson', 'SOC');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000004D', 'Wendy Kelley', 'SOC');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000005E', 'Patrick Bowers', 'FOE');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000006F', 'Ralph Hogan', 'FOE');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000007G', 'Cecil Rodriquez', 'SCI');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000008H', 'Delia Ferguson', 'SCI');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000009I', 'Frances Wright', 'SCI');
-
-INSERT INTO student_info (matric, name, faculty)
-VALUES ('A0000010J', 'Alyssa Sims', 'SCI');
+INSERT INTO username_password (username, password, first_name, last_name)
+VALUES ('username', '$2b$10$vS4KkX8uenTCNooir9vyUuAuX5gUhSGVql8yQdsDDD4TG8bSUjkt.', 'Fan', 'Chen');
+INSERT INTO username_password (username, password, first_name, last_name)
+VALUES ('otherusername'   , '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'Firstname', 'Lastname');
