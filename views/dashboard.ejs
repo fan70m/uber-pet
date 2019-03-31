@@ -12,11 +12,15 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 		<link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+		<!-- Custom styles for this template-->
+		<link href="stylesheets/index.css" rel="stylesheet">
   </head>
 	<body id="page-top">
 		<%- include navbar.ejs %>
 
 		<div id="wrapper">
+			<%- include sidebar.ejs %>
+
 			<div id="content-wrapper">
 				<div class="container-fluid">
 					<div class="card mb-3">
@@ -26,7 +30,7 @@
 						<form method="post" action="/update_info">
 							<div class="card-body">
 								<div class="form-group row">
-									<label for="username" class="col-sm-2 col-form-label"><b>User ID:</b></label>
+									<label for="username" class="col-sm-2 col-form-label"><b>Email:</b></label>
 									<div class="col-sm-4">
 										<input type="text" required="required" readonly class="form-control-plaintext" id="username" value="<%= user %>" name="username">
 									</div>
@@ -53,7 +57,7 @@
 						<form method="post" action="/update_pass">
 							<div class="card-body">
 								<div class="form-group row">
-									<label for="username" class="col-sm-2 col-form-label"><b>User ID:</b></label>
+									<label for="username" class="col-sm-2 col-form-label"><b>Email:</b></label>
 									<div class="col-sm-4">
 										<input type="text" required="required" readonly class="form-control-plaintext" id="username" value="<%= user %>" name="username">
 									</div>

@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Authentication Setup
-//require('dotenv').load();
+require('dotenv').config();
 
 // secret: process.env.SECRET,
 // resave: true,
