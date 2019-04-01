@@ -1,3 +1,9 @@
+DROP TABLE Areas;
+DROP TABLE Pets;
+DROP TABLE Appointments;
+DROP TABLE Payment;
 DROP TABLE Users;
 DROP TABLE Petowners;
 DROP TABLE Caretakers;
+DROP TABLE Rate;
+DROP TABLE Accounts;
