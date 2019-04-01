@@ -1,22 +1,28 @@
 
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
-	<li class="nav-item active">
+	<li class="nav-item">
 		<a class="nav-link <%= page==="userinfo" ? "active" : "" %>" href="<%= page==="userinfo" ? "#" : "/userinfo" %>">
 			<i class="fas fa-fw fa-address-card"></i>
 			<span>User Info</span>
 		</a>
 	</li>
-	<li class="nav-item active">
+	<li class="nav-item">
 		<a class="nav-link <%= page==="listings" ? "active" : "" %>" href="<%= page==="listings" ? "#" : "/listings" %>">
 			<i class="fas fa-fw fa-address-card"></i>
 			<span>Listings</span>
 		</a>
 	</li>
-	<li class="nav-item active">
+	<li class="nav-item">
 		<a class="nav-link <%= page==="pets" ? "active" : "" %>" href="<%= page==="pets" ? "#" : "/pets" %>">
 			<i class="fas fa-fw fa-address-card"></i>
 			<span>Pets</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link <%= page==="appointments" ? "active" : "" %>" href="<%= page==="appointments" ? "#" : "/appointments" %>">
+			<i class="fas fa-fw fa-address-card"></i>
+			<span>Appointments</span>
 		</a>
 	</li>
 </ul>

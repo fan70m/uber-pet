@@ -22,8 +22,7 @@ function initRouter(app) {
 	app.get('/userinfo', passport.authMiddleware(), userinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
 	app.get('/listings', passport.authMiddleware(), listings);
-
-
+	app.get('/appointments', passport.authMiddleware(), appointments);
 
 	app.get('/register' , passport.antiMiddleware(), register );
 	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
@@ -79,6 +78,10 @@ function userinfo(req, res, next) {
 
 function listings(req, res, next) {
 	res.render('listings', { page: 'listings', auth: true });
+}
+
+function appointments(req, res, next) {
+	res.render('appointments', { page: 'appointments', auth: true });
 }
 
 function pets(req, res, next) {
