@@ -36,7 +36,7 @@ function initRouter(app) {
 
 	/* LOGIN */
 	app.post('/login', passport.authenticate('local', {
-		successRedirect: '/userinfo',
+		successRedirect: '/listings',
 		failureRedirect: '/'
 	}));
 
