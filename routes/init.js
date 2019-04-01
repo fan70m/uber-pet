@@ -17,7 +17,11 @@ function initRouter(app) {
 	app.get('/'      , index );
 
   /* PROTECTED GET */
-  app.get('/dashboard', passport.authMiddleware(), dashboard);
+	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
+	// app.get('/pet', passport.authMiddleware(), pet);
+	app.get('/userinfo', passport.authMiddleware(), userinfo);
+	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
+
 
 	app.get('/register' , passport.antiMiddleware(), register );
 	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
@@ -30,7 +34,7 @@ function initRouter(app) {
 
 	/* LOGIN */
 	app.post('/login', passport.authenticate('local', {
-		successRedirect: '/dashboard',
+		successRedirect: '/userinfo',
 		failureRedirect: '/'
 	}));
 
@@ -67,8 +71,8 @@ function index(req, res, next) {
 	res.render('index', { page: 'index', auth: false });
 }
 
-function dashboard(req, res, next) {
-	basic(req, res, 'dashboard', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
+function userinfo(req, res, next) {
+	basic(req, res, 'userinfo', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
 }
 
 function register(req, res, next) {
@@ -87,9 +91,9 @@ function update_info(req, res, next) {
 	pool.query(sql_query.query.update_info, [username, firstname, lastname], (err, data) => {
 		if(err) {
 			console.error("Error in update info");
-			res.redirect('/dashboard?info=fail');
+			res.redirect('/userinfo?info=fail');
 		} else {
-			res.redirect('/dashboard?info=pass');
+			res.redirect('/userinfo?info=pass');
 		}
 	});
 }
@@ -99,9 +103,9 @@ function update_pass(req, res, next) {
 	pool.query(sql_query.query.update_pass, [username, password], (err, data) => {
 		if(err) {
 			console.error("Error in update pass");
-			res.redirect('/dashboard?pass=fail');
+			res.redirect('/userinfo?pass=fail');
 		} else {
-			res.redirect('/dashboard?pass=pass');
+			res.redirect('/userinfo?pass=pass');
 		}
 	});
 }
@@ -125,7 +129,7 @@ function reg_user(req, res, next) {
 				if(err) {
 					return res.redirect('/register?reg=fail');
 				} else {
-					return res.redirect('/dashboard');
+					return res.redirect('/userinfo');
 				}
 			});
 		}
