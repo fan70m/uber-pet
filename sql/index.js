@@ -18,4 +18,6 @@ sql.query = {
 
 }
 
+console.log("hello");
+
 module.exports = sql
