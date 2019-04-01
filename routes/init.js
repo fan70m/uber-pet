@@ -18,7 +18,7 @@ function initRouter(app) {
 
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
-	// app.get('/pet', passport.authMiddleware(), pet);
+	app.get('/pets', passport.authMiddleware(), pets);
 	app.get('/userinfo', passport.authMiddleware(), userinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
 	app.get('/listings', passport.authMiddleware(), listings);
@@ -81,13 +81,13 @@ function listings(req, res, next) {
 	res.render('listings', { page: 'listings', auth: true });
 }
 
+function pets(req, res, next) {
+	res.render('pets', { page: 'pets', auth: true });
+}
+
 function register(req, res, next) {
 	res.render('register', { page: 'register', auth: false });
 }
-function retrieve(req, res, next) {
-	res.render('retrieve', { page: 'retrieve', auth: false });
-}
-
 
 // POST
 function update_info(req, res, next) {
