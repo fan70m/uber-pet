@@ -2,7 +2,7 @@
 <!DOCTYPE html> 
 <html lang="zxx"> 
     <head> 
-        <title>Register</title>         
+        <title>Customers</title>         
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <meta charset="utf-8"> 
         <meta name="keywords" content=""/> 
@@ -16,6 +16,9 @@
 		}
 	</script>         
         <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/> 
+        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property=""/> 
+        <link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all"> 
+        <link rel="stylesheet" href="css/owl.theme.css" type="text/css" media="all"> 
         <link href="css/style.css" rel='stylesheet' type='text/css'/> 
         <link href="css/fontawesome-all.css" rel="stylesheet"> 
         <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet"> 
@@ -32,7 +35,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
                         <ul class="navbar-nav ml-auto"> 
                             <li class="nav-item"> 
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span> </a> 
+                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span> </a> 
                             </li>                             
                             <li class="nav-item ml-xl-2"> 
                                 <a class="nav-link" href="pricing.html">Trace Order</a> 
@@ -40,7 +43,7 @@
                             <li class="nav-item ml-xl-2"> 
 </li>                             
                             <li class="nav-item dropdown ml-xl-2 active"> 
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign In&nbsp;<i class="fas fa-caret-down"></i></a> 
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign In&nbsp;<i class="fas fa-caret-down"></i></a> 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown"> 
                                     <div class="dropdown-divider"></div>                                     
                                     <a class="dropdown-item" href="news.html">Pet Owner</a> 
@@ -48,13 +51,8 @@
                                     <a class="dropdown-item" href="sigin_caretaker.html">Caretaker</a> 
                                 </div>                                 
                             </li>                             
-                            <li class="nav-item ml-xl-2">
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                                    <a class="dropdown-item" href="#">Action</a> 
-                                    <a class="dropdown-item" href="#">Another action</a> 
-                                    <a class="dropdown-item" href="#">Something else here</a> 
-                                </div>
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register</a>
+                            <li class="nav-item ml-xl-2"> 
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Register&nbsp;<i class="fas fa-caret-down"></i></a> 
                             </li>                             
                             <li class="nav-item ml-xl-2"> 
                                 <a class="nav-link" href="contact.html">Contact</a> 
@@ -65,111 +63,49 @@
                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form> -->                         
                     </div>                     
-                </nav>                 
+                </nav>
+                <div class="container py-lg-4 py-3 align-middle pt-3 pb-0 mb-0">
+                    <h3 class="text-white">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Sign in as Pet Owner</h3>
+                </div>                 
             </header>             
             <!--banner-w3layouts-->             
-            <div class="container py-lg-4 py-3 align-middle">
-                <h3 class="text-white text-center">Register</h3>
-            </div>
-            <ol class="breadcrumb justify-content-center"> 
+            <ol class="breadcrumb justify-content-center mt-0 pt-2">
                 <li class="breadcrumb-item"> 
                     <a href="index.html">Home</a> 
                 </li>                 
-                <li class="breadcrumb-item active">Register</li>                 
+                <li class="breadcrumb-item active">Sign in as Pet Owner</li>
             </ol>
             <div class="banner-w3layouts-info two"> 
                 <!--/search_form -->                 
-                <div id="banner-w3layouts-info" class="search_top text-center">                                           
-</div>                 
+                <div id="banner-w3layouts-info" class="search_top text-center"> 
+                    <p></p>                      
+                </div>                 
                 <!--//banner-w3layouts-info -->                 
             </div>             
-            <!--//banner-w3layouts-->             
+            <!--//banner-w3layouts-->
         </div>         
         <!--/main-->         
-        <!--/main-->
+        <!--/banner-w3layouts-bottom -->         
         <section class="banner-w3layouts-bottom py-lg-5 py-3 pb-3 pt-0 mt-0">
-            <div class="container py-lg-4 py-3"> 
-                <h3 class="tittle text-center">Register Now</h3> 
-                <div class="inner-sec-agileits-w3ls"> 
-                    <div class="login p-5 bg-light mx-auto mw-100">
-                        <form action="#" method="post"> 
-                            <div class="form-row"> 
-                                <div class="col-md-6 mb-3"> 
-                                    <label for="validationCustom01">First name</label>                                     
-                                    <input type="text" class="form-control" id="validationDefault01" placeholder="" required=""> 
-                                </div>                                 
-                                <div class="col-md-6 mb-3"> 
-                                    <label for="validationCustom02">Last name</label>                                     
-                                    <input type="text" class="form-control" id="validationDefault02" placeholder="" required=""> 
-                                </div>                                 
-                            </div>                             
-                            <div class="form-row"> 
-                                <div class="form-group col-md-6"> 
-                                    <label for="exampleInputPassword1 mb-2">Password</label>                                     
-                                    <input type="password" class="form-control" id="password1" placeholder="" required=""> 
-                                </div>                                 
-                                <div class="form-group col-md-6"> 
-                                    <label for="exampleInputPassword2 mb-2">Confirm Password</label>                                     
-                                    <input type="password" class="form-control" id="password2" placeholder="" required=""> 
-                                </div>                                 
-                            </div>                             
-                            <a href=""></a> 
-                            <p> </p> 
-                        </form>                         
-                        <div class="btn-group" role="group" aria-label="Basic example"> 
-</div>
-                        <div class="btn-group" data-toggle="buttons"> 
-</div>
-                        <div class="btn-group" data-toggle="buttons"> 
-</div>
-                        <div class="dropdown"> 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                                <a class="dropdown-item" href="#">Action</a> 
-                                <a class="dropdown-item" href="#">Another action</a> 
-                                <a class="dropdown-item" href="#">Something else here</a> 
-                            </div>                             
-                        </div>
-                        <div class="dropdown"> 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                                <a class="dropdown-item" href="#">Action</a> 
-                                <a class="dropdown-item" href="#">Another action</a> 
-                                <a class="dropdown-item" href="#">Something else here</a> 
-                            </div>                             
-                        </div>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                            <a class="dropdown-item" href="#">Action</a> 
-                            <a class="dropdown-item" href="#">Another action</a> 
-                            <a class="dropdown-item" href="#">Something else here</a> 
-                        </div>
-                        <a href="register_petowner.html"><h3 href="register_petowner.html" class="font-weight-bold mt-1 mb-3 d-table-cell align-middle text-white w-auto h-75 float-none border-dark border flex-column-reverse bg-primary">Register as a Pet Owner</h3></a>
-                        <div class="col-md-4 col-lg-12">
-                            <h3></h3> 
-                            <p><br></p> 
-                        </div>
-                        <h3 href="register_caretaker.html" class="font-weight-bold mt-1 mb-3 d-table-cell align-middle text-white w-auto h-75 float-none border-dark border flex-column-reverse bg-primary">Register as a Caretaker</h3>
-                        <div class="w-100"></div>
-                    </div>
-                    <div class="dropdown">
-</div>
-                    <p></p>
-                    <div class="dropdown">
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                            <a class="dropdown-item" href="#">Action</a> 
-                            <a class="dropdown-item" href="#">Another action</a> 
-                            <a class="dropdown-item" href="#">Something else here</a> 
-                        </div>                         
-                    </div>
-                    <div class="dropdown">
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                            <a class="dropdown-item" href="#">Action</a> 
-                            <a class="dropdown-item" href="#">Another action</a> 
-                            <a class="dropdown-item" href="#">Something else here</a> 
-                        </div>                         
-                    </div>
-                </div>                 
+            <div class="container py-lg-4 py-3 align-middle">
+                <h3 class="tittle text-center">Sign in as Pet Owner</h3>
+                <p><br></p>
             </div>
-        </section>                  
-        <!--//main-->         
+            <form role="form" class="ml-5"> 
+                <div class="form-group"> 
+                    <label for="exampleInputEmail1">Email address</label>                     
+                    <input type="email" class="form-control w-50" id="exampleInputEmail1" placeholder="Enter email"> 
+                </div>                 
+                <div class="form-group"> 
+                    <label for="exampleInputPassword1">Password</label>                     
+                    <input type="password" class="form-control w-50" id="exampleInputPassword1" placeholder="Password"> 
+                </div>                 
+                <div class="form-group"> 
+</div>                 
+                <button type="submit" class="btn btn-primary">Login</button>                 
+            </form>
+        </section>         
+        <!--//banner-w3layouts-bottom -->         
         <!--footer-->         
         <footer> 
             <div class="footer-sec-w3-agileits py-lg-5 py-3"> 
@@ -214,7 +150,7 @@
                             </div>                             
                         </div>                         
                         <!-- subscribe -->                         
-                        <div class="col-lg-4 subscribe-main footer-grid-wthree text-left"> 
+                        <div class="col-lg-4 subscribe-main"> 
                             <h2>Signup to our newsletter</h2> 
                             <div class="subscribe-main text-left"> 
                                 <div class="subscribe-form"> 
@@ -260,51 +196,49 @@
         </footer>         
         <!---->         
         <!-- /.footer -->         
-        <!-- js -->         
         <script src="js/jquery-2.2.3.min.js"></script>         
-        <!-- //js -->         
-        <!-- password-script -->         
-        <script>
-		window.onload = function () {
-			document.getElementById("password1").onchange = validatePassword;
-			document.getElementById("password2").onchange = validatePassword;
-		}
-
-		function validatePassword() {
-			var pass2 = document.getElementById("password2").value;
-			var pass1 = document.getElementById("password1").value;
-			if (pass1 != pass2)
-				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-			else
-				document.getElementById("password2").setCustomValidity('');
-			//empty string means no validation error
-		}
-	</script>         
-        <!-- //password-script -->         
-        <!--/ start-smoth-scrolling -->         
+        <!-- start-smooth-scrolling -->         
         <script src="js/move-top.js"></script>         
         <script src="js/easing.js"></script>         
         <script>
 		jQuery(document).ready(function ($) {
 			$(".scroll").click(function (event) {
 				event.preventDefault();
+
 				$('html,body').animate({
 					scrollTop: $(this.hash).offset().top
-				}, 900);
+				}, 1000);
 			});
 		});
 	</script>         
-        <!--// end-smoth-scrolling -->         
+        <!-- //end-smooth-scrolling -->         
+        <!-- dropdown nav -->         
+        <script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+	</script>         
+        <!-- //dropdown nav -->         
+        <!-- smooth-scrolling-of-move-up -->         
         <script>
 		$(document).ready(function () {
 			/*
-									var defaults = {
-							  			containerID: 'toTop', // fading element id
-										containerHoverID: 'toTopHover', // fading element hover id
-										scrollSpeed: 1200,
-										easingType: 'linear' 
-							 		};
-									*/
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
 
 			$().UItoTop({
 				easingType: 'easeOutQuart'
@@ -312,7 +246,8 @@
 
 		});
 	</script>         
-        <!-- //Custom-JavaScript-File-Links -->         
+        <!-- //smooth-scrolling-of-move-up -->         
         <script src="js/bootstrap.js"></script>         
+        <!-- js file -->         
     </body>     
 </html>
