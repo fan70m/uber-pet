@@ -14,8 +14,12 @@ CREATE TABLE Pets(
 
 CREATE TABLE Appointments(
 	appointmentid integer PRIMARY KEY,
+	petid integer NOT NULL,
+	petownername text NOT NULL,
+	caretakername text NOT NULL,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
+	FOREIGN KEY (petid) REFERENCES Pets(petid),
 	unique (starttime, endtime)
 );
 
@@ -64,6 +68,8 @@ CREATE TABLE Rate(
 CREATE TABLE Payment(
 	paymentid integer PRIMARY KEY,
 	credit numeric NOT NULL,
+	username text NOT NULL,
+	FOREIGN KEY (username) REFERENCES Users(username),
 	unique (paymentid, credit)
 );
 
