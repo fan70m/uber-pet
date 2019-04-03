@@ -14,9 +14,10 @@ const salt  = bcrypt.genSaltSync(round);
 
 function initRouter(app) {
 	/* GET */
-	app.get('/'      , index );
+	app.get('/', index );
 	app.get('/listings', listings); //let do get for now. post later. Should it be protected?
 	app.get('/orderdetails', orderdetails); //let do get for now. post later. Should it be protected?
+	app.get('/pricing', pricing); //let do get for now. post later. Should it be protected?
 
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
@@ -84,6 +85,10 @@ function listings(req, res, next) {
 
 function orderdetails(req, res, next) {
 	res.render('orderdetails', { page: 'orderdetails', auth: true });
+}
+
+function pricing(req, res, next) {
+	res.render('pricing', { page: 'pricing', auth: true });
 }
 
 function appointments(req, res, next) {
