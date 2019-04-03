@@ -15,13 +15,13 @@ const salt  = bcrypt.genSaltSync(round);
 function initRouter(app) {
 	/* GET */
 	app.get('/'      , index );
+	app.get('/listings', listings); //let do get for now. post later. Should it be protected?
 
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
 	app.get('/pets', passport.authMiddleware(), pets);
 	app.get('/userinfo', passport.authMiddleware(), userinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
-	app.get('/listings', passport.authMiddleware(), listings);
 	app.get('/appointments', passport.authMiddleware(), appointments);
 
 	app.get('/register' , passport.antiMiddleware(), register );
@@ -30,6 +30,7 @@ function initRouter(app) {
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
 	app.post('/update_pass', passport.authMiddleware(), update_pass);
+	app.post('/listings', passport.authMiddleware(), listings);
 
 	app.post('/reg_user'   , passport.antiMiddleware(), reg_user   );
 
