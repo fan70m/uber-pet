@@ -18,6 +18,7 @@ function initRouter(app) {
 	app.get('/listings', listings); //let do get for now. post later. Should it be protected?
 	app.get('/orderdetails', orderdetails); //let do get for now. post later. Should it be protected?
 	app.get('/pricing', pricing); //let do get for now. post later. Should it be protected?
+	app.get('/review', review); //let do get for now. post later. Should it be protected?
 
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
@@ -89,6 +90,10 @@ function orderdetails(req, res, next) {
 
 function pricing(req, res, next) {
 	res.render('pricing', { page: 'pricing', auth: true });
+}
+
+function review(req, res, next) {
+	res.render('review', { page: 'review', auth: true });
 }
 
 function appointments(req, res, next) {
