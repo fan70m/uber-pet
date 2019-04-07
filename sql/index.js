@@ -57,25 +57,22 @@ sql.query = {
 
     //new payment ok
     add_payment: 'INSERT INTO Payment(paymentid, credit,petownerid) VALUES($1,$2,$3)',
-    //inquire payment history
-    //inquire_payment: 'SELECT'
+
 
     //new account ok
     add_account: 'INSERT INTO Accounts(accountid, balance, userid) VALUES($1,$2,$3)',
 
-    //find pet caretaker need to choose the animal type
-    find_caretaker: 'SELECT Caretakers.username FROM Caretaker, Petowners WHERE Petowners.username=$1 and Petowners.starttime>=Caretaker.starttime and Petowners.endtime<=Caretaker.endtime',
-
-
-    //aftertime
-    //after_time:''
-
-
     //inquire account ok
     inquire_account: 'SELECT balance FROM Accounts WHERE userid=$3',
 
+    //find pet caretaker need to choose the animal type
+    
+    //inquire payment history
+
+    
+
     //inquire appointment 
-    inquire_appointment: 'SELECT * FROM appointments, Petowners, Users WHERE appointments.petid=Petowners.petid and Petowners.username=Users.username and Users.username=$1',
+    inquire_appointment: 'SELECT * FROM appointments, Petowners, Users WHERE appointments.petid=Petowners.userid and Petowners.userid=Users.userid and Users.userid=$2',
 
 
 }
