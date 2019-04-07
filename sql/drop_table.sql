@@ -1,3 +1,12 @@
-DROP TABLE Users;
-DROP TABLE Petowners;
+DROP TABLE Accounts;
+DROP TABLE Payment;
+DROP TABLE Rate;
+DROP TABLE service;
+DROP TABLE caretakeravailability;
 DROP TABLE Caretakers;
+DROP TABLE Petowners;
+DROP TABLE Users;
+DROP TABLE Appointments;
+DROP TABLE petavailability;
+DROP TABLE Pets;
+DROP TABLE Areas;
