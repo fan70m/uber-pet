@@ -19,9 +19,9 @@ sql.query = {
   update_area: 'UPDATE Areas SET areaname=$2 WHERE areaid=$1',
 
   //insert pet ok
-  add_pet: 'INSERT INTO Pets(petid, petname, type, ownername) VALUES($1,$2,$3,$4)',
+  add_pet: 'INSERT INTO Pets(petid, petname, specie, ownername) VALUES($1,$2,$3,$4)',
   //update pet ok
-  update_area: 'UPDATE Pets SET petname=$2, type=$3, ownername=$4 WHERE username=$1',
+  update_area: 'UPDATE Pets SET petname=$2, specie=$3, ownername=$4 WHERE username=$1',
 
   //new petavailability ok
   add_petavailability:'INSERT INTO petavailability(petid,starttime,endtime) VALUES($1,$2,$3)',
@@ -63,7 +63,7 @@ sql.query = {
   //inquire account ok
   inquire_account: 'SELECT balance FROM Accounts WHERE userid=$3',
 
-  //find pet caretaker need to choose the animal type
+  //find pet caretaker need to choose the animal specie
 
   //inquire payment history
 

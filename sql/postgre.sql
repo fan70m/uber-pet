@@ -12,13 +12,13 @@ VALUES ('Singapore');
 CREATE TABLE Pets(
 	petid SERIAL PRIMARY KEY,
 	petname text NOT NULL,
-	type varchar(64) NOT NULL,
+	specie varchar(64) NOT NULL,
 	ownername text NOT NULL
 );
 
-INSERT INTO Pets (petname,type,ownername)
+INSERT INTO Pets (petname,specie,ownername)
 VALUES ('A','dog','Tom');
-INSERT INTO Pets (petname,type,ownername)
+INSERT INTO Pets (petname,specie,ownername)
 VALUES ('B','cat','Jack');
 
 
@@ -94,16 +94,16 @@ VALUES (2);
 
 CREATE TABLE caretakeravailability(
 	caretakerid integer PRIMARY KEY,
-	type text NOT NULL,
+	specie text NOT NULL,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
 	unique (starttime, endtime),
 	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
 );
 
-INSERT INTO caretakeravailability (caretakerid,type,starttime,endtime)
+INSERT INTO caretakeravailability (caretakerid,specie,starttime,endtime)
 VALUES (1,'dog','2019-01-01','2019-04-01');
-INSERT INTO caretakeravailability (caretakerid,type,starttime,endtime)
+INSERT INTO caretakeravailability (caretakerid,specie,starttime,endtime)
 VALUES (2,'cat','2019-03-01','2019-08-01');
 
 
