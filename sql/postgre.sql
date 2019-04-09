@@ -34,7 +34,7 @@ INSERT INTO petavailability (petid,starttime,endtime)
 VALUES (1,'2019-01-01','2019-04-01');
 INSERT INTO petavailability (petid,starttime,endtime)
 VALUES (2,'2019-03-01','2019-08-01');
-
+c
 
 
 CREATE TABLE Appointments(
@@ -95,6 +95,7 @@ VALUES (2);
 
 CREATE TABLE caretakeravailability(
 	caretakerid integer PRIMARY KEY,
+	type text NOT NULL,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
 	unique (starttime, endtime),
@@ -102,9 +103,9 @@ CREATE TABLE caretakeravailability(
 );
 
 INSERT INTO caretakeravailability (caretakerid,starttime,endtime)
-VALUES (1,'2019-01-01','2019-04-01');
+VALUES (1,'dog','2019-01-01','2019-04-01');
 INSERT INTO caretakeravailability (caretakerid,starttime,endtime)
-VALUES (2,'2019-03-01','2019-08-01');
+VALUES (2,'cat','2019-03-01','2019-08-01');
 
 
 CREATE TABLE service(
