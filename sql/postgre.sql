@@ -54,8 +54,8 @@ VALUES (2,'Jack','Kelly','2019-04-12','2019-04-20');
 
 
 CREATE TABLE Users (
-	username   text   PRIMARY KEY,
-	userid SERIAL NOT NULL unique,
+	userid SERIAL PRIMARY KEY,
+	username text NOT NULL UNIQUE,
 	password   varchar(64) NOT NULL,
 	first_name varchar(64) NOT NULL,
 	last_name  varchar(64) NOT NULL,

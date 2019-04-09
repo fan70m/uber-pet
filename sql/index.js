@@ -2,11 +2,9 @@ const sql = {}
 
 sql.query = {
 
-  // Insertion ok
-    add_user: 'INSERT INTO Users (username, userid, password, first_name, last_name, areaid) VALUES ($1,$2,$3,$4,$5,$6)',
+  // Insert new user ok
+  add_user: 'INSERT INTO Users (username, password, first_name, last_name, areaid) VALUES ($1,$2,$3,$4,$5)',
   //for now, i'll just use username(email) as the primary key
-  //if we want an int id, we can follow what they do in this link
-  //https://www.viget.com/articles/generate-unique-identifiers-with-postgres-sequences/
 
 	// Login ok
 	userpass: 'SELECT * FROM Users WHERE username=$1',
@@ -71,6 +69,8 @@ sql.query = {
 
   //inquire appointment
   inquire_appointment: 'SELECT * FROM appointments, Petowners, Users WHERE appointments.petid=Petowners.userid and Petowners.userid=Users.userid and Users.userid=$2',
+
+  find_location_id: "SELECT areaid FROM areas where areaname=$1",
 
 }
 

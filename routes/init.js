@@ -145,7 +145,19 @@ function reg_user(req, res, next) {
 	var password  = bcrypt.hashSync(req.body.password, salt);
 	var firstname = req.body.firstname;
 	var lastname  = req.body.lastname;
-	pool.query(sql_query.query.add_user, [username,password,firstname,lastname], (err, data) => {
+	var location  = req.body.location;
+	var locationid = 1
+
+	pool.query(sql_query.query.find_location_id, [location], (err, data) => {
+		if(err) {
+			console.error("Location does not exist", err);
+			res.redirect('/register?reg=fail');
+		} else {
+			locationid = data.rows[0]["areaid"]
+		}
+	});
+
+	pool.query(sql_query.query.add_user, [username,password,firstname,lastname,locationid], (err, data) => {
 		if(err) {
 			console.error("Error in adding user", err);
 			res.redirect('/register?reg=fail');
@@ -155,11 +167,12 @@ function reg_user(req, res, next) {
 				passwordHash: password,
 				firstname   : firstname,
 				lastname    : lastname,
+				location    : locationid,
 			}, function(err) {
 				if(err) {
 					return res.redirect('/register?reg=fail');
 				} else {
-					return res.redirect('/userinfo');
+					return res.redirect('/');
 				}
 			});
 		}
