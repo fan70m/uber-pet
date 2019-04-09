@@ -53,7 +53,7 @@ sql.query = {
     //new rate ok
     add_rate: 'INSERT INTO Rate(appointmentid, caretakerid, rate, comment) VALUES($1,$2,$3,$4)',
     //delete rate ok
-    delete rate:'DELETE FROM rate where appointmentid=$1'
+    delete_rate: 'DELETE FROM rate where appointmentid=$1',
 
     //new payment ok
     add_payment: 'INSERT INTO Payment(paymentid, credit,petownerid) VALUES($1,$2,$3)',
@@ -66,12 +66,10 @@ sql.query = {
     inquire_account: 'SELECT balance FROM Accounts WHERE userid=$3',
 
     //find pet caretaker need to choose the animal type
-    
+
     //inquire payment history
 
-    
-
-    //inquire appointment 
+    //inquire appointment
     inquire_appointment: 'SELECT * FROM appointments, Petowners, Users WHERE appointments.petid=Petowners.userid and Petowners.userid=Users.userid and Users.userid=$2',
 
 
