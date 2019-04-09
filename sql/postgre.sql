@@ -34,7 +34,6 @@ INSERT INTO petavailability (petid,starttime,endtime)
 VALUES (1,'2019-01-01','2019-04-01');
 INSERT INTO petavailability (petid,starttime,endtime)
 VALUES (2,'2019-03-01','2019-08-01');
-c
 
 
 CREATE TABLE Appointments(
@@ -102,9 +101,9 @@ CREATE TABLE caretakeravailability(
 	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
 );
 
-INSERT INTO caretakeravailability (caretakerid,starttime,endtime)
+INSERT INTO caretakeravailability (caretakerid,type,starttime,endtime)
 VALUES (1,'dog','2019-01-01','2019-04-01');
-INSERT INTO caretakeravailability (caretakerid,starttime,endtime)
+INSERT INTO caretakeravailability (caretakerid,type,starttime,endtime)
 VALUES (2,'cat','2019-03-01','2019-08-01');
 
 
@@ -162,7 +161,3 @@ INSERT INTO Accounts(balance, userid)
 VALUES(1000,1);
 INSERT INTO Accounts(balance, userid)
 VALUES(1500,2);
-
-
-
-
