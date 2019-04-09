@@ -14,10 +14,8 @@
 					window.scrollTo(0, 1);
 				}
 			</script>
+
 			<link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
-			<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property=""/>
-			<link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all">
-			<link rel="stylesheet" href="css/owl.theme.css" type="text/css" media="all">
 			<link href="css/style.css" rel='stylesheet' type='text/css'/>
 			<link href="css/fontawesome-all.css" rel="stylesheet">
 			<link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
@@ -34,46 +32,63 @@
 						<div id="search_form" class="search_top text-center">
 								<h3>Make a search</h3>
 								<p>search for your pet care taker</p>
-								<form action="/listings" method="get" class="ban-form row mb-5">
-										<div class="col-md-3 banf">
-												<select class="form-control" id="country12" style="max-height: 90-1px; height: 80; min-height: 60;">
-														<option>Location</option>
-														<option>Central</option>
-														<option>East</option>
-														<option>North</option>
-														<option>North-East</option>
-														<option>West</option>
-												</select>
+								<form action="/listings" method="post" class="ban-form row mb-5">
+									<div class="form-group">
+										<div class="form-row">
+											<div class="col-md-6 banf">
+													<label for="startdate">Location</label>
+													<select class="form-control" id="location">
+															<option>Singapore</option>
+															<option>Taipei</option>
+													</select>
+											</div>
+											<div class="col-md-6 banf">
+													<label for="enddate">Animal</label>
+													<select class="form-control" id="specie">
+															<option>Dog</option>
+															<option>Cat</option>
+													</select>
+											</div>
 										</div>
-										<div class="col-md-4 banf">
-												<label for="start">Start date:</label>
-												<input type="date" id="start" name="trip-start" value="2019-04-01" min="2019-04-01" max="2019-12-31">
-												<div class="container">
-														<div class="row">
-																<script>
-																	$(function () {
-																			$('#datetimepicker1').datetimepicker();
-																	});
-															</script>
-														</div>
-												</div>
+									</div>
+									<div class="form-group">
+										<div class="form-row">
+											<div class="col-md-6 banf">
+													<label for="startdate">Start date</label>
+													<input class="form-control" type="date" id="startdate" name="trip-start" value="2019-04-01" min="2019-04-01" max="2019-12-31">
+													<div class="container">
+															<div class="row">
+																	<script>
+																		$(function () {
+																				$('#datetimepicker1').datetimepicker();
+																		});
+																</script>
+															</div>
+													</div>
+											</div>
+											<div class="col-md-6 banf">
+													<label for="enddate">End date</label>
+													<input class="form-control" type="date" id="enddate" name="trip-start" value="2019-04-01" min="2019-04-01" max="2019-12-31">
+													<div class="container">
+															<div class="row">
+																	<script>
+																		$(function () {
+																				$('#datetimepicker1').datetimepicker();
+																		});
+																</script>
+															</div>
+													</div>
+											</div>
 										</div>
-										<div class="col-md-4 banf">
-												<label for="end">End date:</label>
-												<input type="date" id="end" name="trip-start" value="2019-04-01" min="2019-04-01" max="2019-12-31">
-												<div class="container">
-														<div class="row">
-																<script>
-																	$(function () {
-																			$('#datetimepicker1').datetimepicker();
-																	});
-															</script>
-														</div>
-												</div>
+									</div>
+									<div class="form-group">
+										<div class="form-row">
+											<div class="col-md-12 banf">
+												<label for="enddate">Find appointment</label>
+												<input class="form-control" type="submit" value="Search">
+											</div>
 										</div>
-										<div class="col-md-3 banf">
-											<input class="form-control" type="submit" value="Search">
-										</div>
+									</div>
 								</form>
 						</div>
 						<!--//search_form -->
@@ -90,8 +105,7 @@
 								</div>
 								<div class="col-lg-6 about-info">
 										<h3 class="tittle text-left mb-lg-5 mb-3">About Us</h3>
-										<p class="my-xl-4 my-lg-3 my-md-4 my-3">Need a Pet caretaker or Pet caretaking job? Uber-pet.com connects your furry family members with a massive community of pet lovers, offering pet sitting, dog walking, grooming &amp; boarding services. Whether you have a dog, cat, fish or something more exotic we can help you find someone to help care for them when you can't. Dog walkers, cat sitters, kennels, doggy daycares, pet grooming, dog sitters- you name it we've got it.. </p>
-										<a href="single.html" class="btn btn-sm animated-button gibson-three">Read More</a>
+										<p class="my-xl-4 my-lg-3 my-md-4 my-3">Need a Pet caretaker or Pet caretaking job? Uber-pet.com connects your furry family members with a massive community of pet lovers, offering pet sitting, dog walking, grooming &amp; boarding services. Whether you have a dog, cat, fish or something more exotic we can help you find someone to help care for them when you can't. Dog walkers, cat sitters, kennels, doggy daycares, pet grooming, dog sitters- you name it we've got it. </p>
 								</div>
 						</div>
 				</div>
