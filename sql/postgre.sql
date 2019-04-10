@@ -82,43 +82,48 @@ VALUES (2);
 
 CREATE TABLE Caretakers (
 	userid 			integer PRIMARY KEY,
+	rate integer NOT NULL,
+	price integer NOT NULL,
 	FOREIGN KEY (userid) REFERENCES Users(userid)
 );
 
-INSERT INTO Caretakers (userid)
-VALUES (1);
-INSERT INTO Caretakers (userid)
-VALUES (2);
+INSERT INTO Caretakers(userid,rate,price)
+VALUES(1,4,20);
+INSERT INTO Caretakers(userid,rate,price)
+VALUES(2,3,15);
 
+CREATE TABLE AnimalSpecies (
+	animalid SERIAL PRIMARY KEY,
+	animalname varchar(64) NOT NULL
+);
 
+INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
+INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
 
-CREATE TABLE caretakeravailability(
+CREATE TABLE AnimalServices (
+	animalid INTEGER NOT NULL,
+	caretakersid integer NOT NULL,
+	FOREIGN KEY (animalid) REFERENCES AnimalSpecies(animalid),
+	FOREIGN KEY (caretakersid) REFERENCES Caretakers(userid),
+	PRIMARY KEY (animalid, caretakersid)
+);
+
+INSERT INTO AnimalServices (animalid, caretakersid) VALUES (1, 1);
+INSERT INTO AnimalServices (animalid, caretakersid) VALUES (2, 1);
+INSERT INTO AnimalServices (animalid, caretakersid) VALUES (2, 2);
+
+CREATE TABLE Caretakeravailability(
 	caretakerid integer PRIMARY KEY,
-	specie text NOT NULL,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
 	unique (starttime, endtime),
 	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
 );
 
-INSERT INTO caretakeravailability (caretakerid,specie,starttime,endtime)
-VALUES (1,'dog','2019-01-01','2019-04-01');
-INSERT INTO caretakeravailability (caretakerid,specie,starttime,endtime)
-VALUES (2,'cat','2019-03-01','2019-08-01');
-
-
-CREATE TABLE service(
-	caretakerid integer PRIMARY KEY,
-	rate integer NOT NULL,
-	price integer NOT NULL,
-	FOREIGN KEY (caretakerid) REFERENCES caretakers(userid)
-);
-
-INSERT INTO service(caretakerid,rate,price)
-VALUES(1,4,20);
-INSERT INTO service(caretakerid,rate,price)
-VALUES(2,3,15);
-
+INSERT INTO Caretakeravailability (caretakerid,starttime,endtime)
+VALUES (1, '2019-01-01','2019-04-01');
+INSERT INTO Caretakeravailability (caretakerid,starttime,endtime)
+VALUES (2, '2019-03-01','2019-08-01');
 
 CREATE TABLE Rate(
 	appointmentid integer PRIMARY KEY,

@@ -1,8 +1,9 @@
 DROP TABLE Accounts;
 DROP TABLE Payment;
 DROP TABLE Rate;
-DROP TABLE service;
-DROP TABLE caretakeravailability;
+DROP TABLE Caretakeravailability;
+DROP TABLE AnimalServices;
+DROP TABLE AnimalTypes;
 DROP TABLE Caretakers;
 DROP TABLE Petowners;
 DROP TABLE Users;
