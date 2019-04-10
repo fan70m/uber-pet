@@ -123,7 +123,7 @@ function choose_pet(req, res, next) {
 	pool.query(sql_query.query.find_pets, [username], (err, data) => {
 		if(err) {
 			console.error("Error in find pets", err);
-			res.redirect('/choose_pet?info=fail');
+			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
 			res.render('choose_pet', { data: data, page: 'choose_pet', query: req.query,  auth: true });
@@ -137,7 +137,7 @@ function confirmation(req, res, next) {
 	pool.query(sql_query.query.find_petname, [petid], (err, data) => {
 		if(err) {
 			console.error("Error in find pets", err);
-			res.redirect('/confirmation?info=fail');
+			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
 			res.render('confirmation', { page: 'confirmation', auth: true, data: data, ...req.query});
@@ -152,16 +152,17 @@ function pricing(req, res, next) {
 	var endtime = req.query.endtime;
 	var db_starttime = req.query.db_starttime;
 	var db_endtime = req.query.db_endtime;
+	console.log(req.query);
+
 	pool.query(sql_query.query.make_appointment, [petid, caretakerid, starttime, endtime], (err, data) => {
 		if(err) {
 			console.error("Error in find pets", err);
 			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
-			res.render('confirmation', { page: 'confirmation', auth: true, query: req.query, data: data});
+			res.render('pricing', { page: 'pricing', auth: true});
 		}
 	})
-	res.render('pricing', { page: 'pricing', auth: true });
 }
 
 // POST

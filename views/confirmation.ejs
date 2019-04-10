@@ -53,8 +53,8 @@
                 <div class="card-deck text-center row">
                   <p>You are paying <%= price %>$ for caretaker <%= caretakerid %> for your pet <%= data.rows[0].petname %> from <%= starttime %> to <%= endtime %></p>
                 </div>
+                <a href="/pricing?petid=<%= petid %>&caretakerid=<%= caretakerid %>&starttime=<%= starttime %>&endtime=<%= endtime %>&db_starttime<%= db_starttime %>&db_endtime=<%= db_endtime %>">Confirm</a>
             </div>
-            <a href="/pricing" class="float-right text-dark font-weight-bold bg-info mw-100 h-50 border border-secondary align-middle p-2 text-center mt-2 mb-auto mr-5 w-25" style="margin-bottom: 20px;">Confirm</a>
         </section>
         <!--//banner-w3layouts-bottom -->
         <footer>
