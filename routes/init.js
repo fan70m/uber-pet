@@ -16,7 +16,6 @@ function initRouter(app) {
 	/* GET */
 	app.get('/', index );
 	app.get('/orderdetails', orderdetails); //let do get for now. post later. Should it be protected?
-	app.get('/pricing', pricing); //let do get for now. post later. Should it be protected?
 	app.get('/review', review); //let do get for now. post later. Should it be protected?
 	app.get('/login_page', login_page); //let do get for now. post later. Should it be protected?
 	app.get('/loginfail', loginfail); //let do get for now. post later. Should it be protected?
@@ -30,6 +29,7 @@ function initRouter(app) {
 	app.get('/register' , passport.antiMiddleware(), register );
 	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
 	app.get('/confirmation', passport.authMiddleware(), confirmation);
+	app.get('/pricing', passport.authMiddleware(), pricing); //let do get for now. post later. Should it be protected?
 
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
@@ -129,8 +129,8 @@ function loginfail(req, res, next) {
 function listings(req, res, next) {
 	var username  = req.user.username;
 	var location = req.body.location;
-	var startdate  = req.body.startdate;
-	var enddate  = req.body.enddate;
+	var starttime  = req.body.starttime;
+	var endtime  = req.body.enddate;
 	var specie = req.body.specie.toLowerCase();
 	var locationid;
 
@@ -143,12 +143,12 @@ function listings(req, res, next) {
 		}
 	});
 
-	pool.query(sql_query.query.find_appointment, [], (err, data) => {
+	pool.query(sql_query.query.find_appointment, [starttime, endtime, specie], (err, data) => {
 		if(err) {
 			console.error("Error in find appointment", err);
 			res.redirect('/listings?info=fail');
 		} else {
-			console.log("args", locationid, specie, startdate, enddate);
+			console.log("args", locationid, specie, starttime, endtime);
 			console.log(data);
 			console.log(data.rows[0].starttime);
 			res.render('listings', { page: 'listings', auth: true, data: data });

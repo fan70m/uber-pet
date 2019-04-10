@@ -55,7 +55,7 @@
             if (month.length < 2) month = '0' + month;
             if (day.length < 2) day = '0' + day;
 
-            return [day, month, year].join('-');
+            return [year, month, day].join('-');
         }
         %>
         <section class="banner-w3layouts-bottom py-lg-5 py-3" style="text-transform: none;">
@@ -65,6 +65,7 @@
                     <% for (var i = 0; i < data.rows.length; i++) { %>
                         <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
                             <div>
+                                <p>Caretaker ID: <%= data.rows[i].caretakerid %></p>
                                 <p>Rating: <%= data.rows[i].rate %></p>
                                 <p>Price: <%= data.rows[i].price %></p>
                                 <p>Start Time: <%= formatDate(data.rows[i].starttime) %></p>

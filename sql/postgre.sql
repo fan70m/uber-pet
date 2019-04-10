@@ -71,14 +71,21 @@ CREATE TABLE Users (
 	FOREIGN KEY (areaid) REFERENCES Areas(areaid)
 );
 
-INSERT INTO Users (username, password, first_name, last_name,areaid)
-VALUES ('username@gmail.com', '$2b$10$vS4KkX8uenTCNooir9vyUuAuX5gUhSGVql8yQdsDDD4TG8bSUjkt.', 'Fan', 'Chen',1);
-INSERT INTO Users (username, password, first_name, last_name,areaid)
-VALUES ('otherusername@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'Firstname', 'Lastname',2);
-
+INSERT INTO Users (username, password, first_name, last_name, areaid)
+VALUES ('username@gmail.com', '$2b$10$vS4KkX8uenTCNooir9vyUuAuX5gUhSGVql8yQdsDDD4TG8bSUjkt.', 'Fan', 'Chen', 1);
+INSERT INTO Users (username, password, first_name, last_name, areaid)
+VALUES ('otherusername@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'Firstname', 'Lastname', 2);
+INSERT INTO Users (username, password, first_name, last_name, areaid)
+VALUES ('fanychen@live.ca', '$2b$10$TiuAOuMlsMm5QUC1No8n3uyuGYXLXY2gd/azVOJ/QBcoLJ6bJApDK', 'asdf', 'asdf', 2);
+INSERT INTO Users (username, password, first_name, last_name, areaid)
+VALUES ('bla@gmail.com', '$2b$10$vS4KkX8uenTCNooir9vyUuAuX5gUhSGVql8yQdsDDD4TG8bSUjkt.', 'caretaker3', 'area1', 1);
+INSERT INTO Users (username, password, first_name, last_name, areaid)
+VALUES ('blabla@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'caretaker4', 'area2', 2);
+INSERT INTO Users (username, password, first_name, last_name, areaid)
+VALUES ('blablabla@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'caretaker4', 'area2', 2);
 
 CREATE TABLE Petowners (
-	userid 			integer PRIMARY KEY,
+	userid integer PRIMARY KEY,
 	FOREIGN KEY (userid) REFERENCES Users(userid)
 );
 
@@ -89,8 +96,8 @@ VALUES (2);
 
 
 CREATE TABLE Caretakers (
-	userid 			integer PRIMARY KEY,
-	rate integer NOT NULL,
+	userid integer PRIMARY KEY,
+	rate integer NULL,
 	price integer NOT NULL,
 	FOREIGN KEY (userid) REFERENCES Users(userid)
 );
@@ -99,6 +106,13 @@ INSERT INTO Caretakers(userid,rate,price)
 VALUES(1,4,20);
 INSERT INTO Caretakers(userid,rate,price)
 VALUES(2,3,15);
+INSERT INTO Caretakers(userid,price)
+VALUES(4,16);
+INSERT INTO Caretakers(userid,price)
+VALUES(5,17);
+INSERT INTO Caretakers(userid,price)
+VALUES(6,18);
+
 
 CREATE TABLE AnimalServices (
 	animalid INTEGER NOT NULL,
@@ -111,19 +125,35 @@ CREATE TABLE AnimalServices (
 INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 1);
 INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 1);
 INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 2);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 4);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 4);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 5);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 6);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 6);
 
 CREATE TABLE Caretakeravailabilities(
-	caretakerid integer PRIMARY KEY,
+	caretakerid integer NOT NULL,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
-	unique (starttime, endtime),
-	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
+	PRIMARY KEY(caretakerid,starttime,endtime),
+	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid),
+	CHECK (starttime <  endtime)
 );
 
 INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
-VALUES (1, '2019-01-01','2019-04-01');
+VALUES (1, now(), now() + INTERVAL '10 DAY');
 INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
 VALUES (2, '2019-03-01','2019-08-01');
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
+VALUES (5, '2019-03-01','2019-08-01');
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
+VALUES (4, '2019-03-01','2019-04-01');
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
+VALUES (4, '2019-04-02','2019-08-01');
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
+VALUES (6, '2019-03-01','2019-04-01');
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
+VALUES (6, '2019-04-02','2019-08-01');
 
 CREATE TABLE Rates(
 	appointmentid integer PRIMARY KEY,
@@ -138,8 +168,6 @@ INSERT INTO rates(appointmentid,caretakerid,rate,comment)
 VALUES(1,1,4,'He is good');
 INSERT INTO rates(appointmentid,caretakerid,rate,comment)
 VALUES(2,2,3,'He is bad');
-
-
 
 CREATE TABLE Payments(
 	paymentid SERIAL PRIMARY KEY,
