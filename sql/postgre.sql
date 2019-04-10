@@ -22,7 +22,7 @@ INSERT INTO Pets (petname,specie,ownername)
 VALUES ('B','cat','Jack');
 
 
-CREATE TABLE petavailability(
+CREATE TABLE Petavailabilities(
 	petid integer PRIMARY KEY,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
@@ -30,9 +30,9 @@ CREATE TABLE petavailability(
 	FOREIGN KEY (petid) REFERENCES Pets(petid)
 );
 
-INSERT INTO petavailability (petid,starttime,endtime)
+INSERT INTO Petavailabilities (petid,starttime,endtime)
 VALUES (1,'2019-01-01','2019-04-01');
-INSERT INTO petavailability (petid,starttime,endtime)
+INSERT INTO Petavailabilities (petid,starttime,endtime)
 VALUES (2,'2019-03-01','2019-08-01');
 
 
@@ -47,9 +47,9 @@ CREATE TABLE Appointments(
 	unique (starttime, endtime)
 );
 
-INSERT INTO appointments(petid,petownername,caretakername,starttime,endtime)
+INSERT INTO Appointments(petid,petownername,caretakername,starttime,endtime)
 VALUES (1,'Tom','Lily','2019-02-01','2019-02-15');
-INSERT INTO appointments(petid,petownername,caretakername,starttime,endtime)
+INSERT INTO Appointments(petid,petownername,caretakername,starttime,endtime)
 VALUES (2,'Jack','Kelly','2019-04-12','2019-04-20');
 
 
@@ -112,7 +112,7 @@ INSERT INTO AnimalServices (animalid, caretakersid) VALUES (1, 1);
 INSERT INTO AnimalServices (animalid, caretakersid) VALUES (2, 1);
 INSERT INTO AnimalServices (animalid, caretakersid) VALUES (2, 2);
 
-CREATE TABLE Caretakeravailability(
+CREATE TABLE Caretakeravailabilities(
 	caretakerid integer PRIMARY KEY,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
@@ -120,12 +120,12 @@ CREATE TABLE Caretakeravailability(
 	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
 );
 
-INSERT INTO Caretakeravailability (caretakerid,starttime,endtime)
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
 VALUES (1, '2019-01-01','2019-04-01');
-INSERT INTO Caretakeravailability (caretakerid,starttime,endtime)
+INSERT INTO Caretakeravailabilities (caretakerid,starttime,endtime)
 VALUES (2, '2019-03-01','2019-08-01');
 
-CREATE TABLE Rate(
+CREATE TABLE Rates(
 	appointmentid integer PRIMARY KEY,
 	caretakerid integer NOT NULL,
 	rate integer NOT NULL,
@@ -134,23 +134,23 @@ CREATE TABLE Rate(
 	FOREIGN KEY (caretakerid) REFERENCES Users(userid)
 );
 
-INSERT INTO rate(appointmentid,caretakerid,rate,comment)
+INSERT INTO rates(appointmentid,caretakerid,rate,comment)
 VALUES(1,1,4,'He is good');
-INSERT INTO rate(appointmentid,caretakerid,rate,comment)
+INSERT INTO rates(appointmentid,caretakerid,rate,comment)
 VALUES(2,2,3,'He is bad');
 
 
 
-CREATE TABLE Payment(
+CREATE TABLE Payments(
 	paymentid SERIAL PRIMARY KEY,
 	credit numeric NOT NULL,
 	petownerid integer NOT NULL,
 	FOREIGN KEY (petownerid) REFERENCES Petowners(userid)
 );
 
-INSERT INTO payment(credit,petownerid)
+INSERT INTO Payments(credit,petownerid)
 VALUES(600,1);
-INSERT INTO payment(credit,petownerid)
+INSERT INTO Payments(credit,petownerid)
 VALUES(450,2);
 
 
