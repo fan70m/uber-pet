@@ -102,15 +102,15 @@ VALUES(2,3,15);
 
 CREATE TABLE AnimalServices (
 	animalid INTEGER NOT NULL,
-	caretakersid integer NOT NULL,
+	caretakerid integer NOT NULL,
 	FOREIGN KEY (animalid) REFERENCES AnimalSpecies(animalid),
-	FOREIGN KEY (caretakersid) REFERENCES Caretakers(userid),
-	PRIMARY KEY (animalid, caretakersid)
+	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid),
+	PRIMARY KEY (animalid, caretakerid)
 );
 
-INSERT INTO AnimalServices (animalid, caretakersid) VALUES (1, 1);
-INSERT INTO AnimalServices (animalid, caretakersid) VALUES (2, 1);
-INSERT INTO AnimalServices (animalid, caretakersid) VALUES (2, 2);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 1);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 1);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 2);
 
 CREATE TABLE Caretakeravailabilities(
 	caretakerid integer PRIMARY KEY,
