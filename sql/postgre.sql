@@ -8,18 +8,26 @@ VALUES ('Taipei');
 INSERT INTO Areas (areaname)
 VALUES ('Singapore');
 
+CREATE TABLE AnimalSpecies (
+	animalid SERIAL PRIMARY KEY,
+	animalname varchar(64) NOT NULL
+);
+
+INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
+INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
 
 CREATE TABLE Pets(
 	petid SERIAL PRIMARY KEY,
 	petname text NOT NULL,
-	specie varchar(64) NOT NULL,
-	ownername text NOT NULL
+	specieid integer NOT NULL,
+	ownername text NOT NULL,
+	FOREIGN KEY (specieid) REFERENCES AnimalSpecies(animalid)
 );
 
-INSERT INTO Pets (petname,specie,ownername)
-VALUES ('A','dog','Tom');
-INSERT INTO Pets (petname,specie,ownername)
-VALUES ('B','cat','Jack');
+INSERT INTO Pets (petname,specieid,ownername)
+VALUES ('A',1,'Tom');
+INSERT INTO Pets (petname,specieid,ownername)
+VALUES ('B',2,'Jack');
 
 
 CREATE TABLE Petavailabilities(
@@ -91,14 +99,6 @@ INSERT INTO Caretakers(userid,rate,price)
 VALUES(1,4,20);
 INSERT INTO Caretakers(userid,rate,price)
 VALUES(2,3,15);
-
-CREATE TABLE AnimalSpecies (
-	animalid SERIAL PRIMARY KEY,
-	animalname varchar(64) NOT NULL
-);
-
-INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
-INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
 
 CREATE TABLE AnimalServices (
 	animalid INTEGER NOT NULL,
