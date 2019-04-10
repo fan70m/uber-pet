@@ -8,59 +8,6 @@ VALUES ('Taipei');
 INSERT INTO Areas (areaname)
 VALUES ('Singapore');
 
-CREATE TABLE AnimalSpecies (
-	animalid SERIAL PRIMARY KEY,
-	animalname varchar(64) NOT NULL
-);
-
-INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
-INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
-
-CREATE TABLE Pets(
-	petid SERIAL PRIMARY KEY,
-	petname text NOT NULL,
-	specieid integer NOT NULL,
-	ownername text NOT NULL,
-	FOREIGN KEY (specieid) REFERENCES AnimalSpecies(animalid)
-);
-
-INSERT INTO Pets (petname,specieid,ownername)
-VALUES ('A',1,'Tom');
-INSERT INTO Pets (petname,specieid,ownername)
-VALUES ('B',2,'Jack');
-
-
-CREATE TABLE Petavailabilities(
-	petid integer PRIMARY KEY,
-	starttime date NOT NULL,
-	endtime date NOT NULL,
-	unique (starttime, endtime),
-	FOREIGN KEY (petid) REFERENCES Pets(petid)
-);
-
-INSERT INTO Petavailabilities (petid,starttime,endtime)
-VALUES (1,'2019-01-01','2019-04-01');
-INSERT INTO Petavailabilities (petid,starttime,endtime)
-VALUES (2,'2019-03-01','2019-08-01');
-
-
-CREATE TABLE Appointments(
-	appointmentid SERIAL PRIMARY KEY,
-	petid integer NOT NULL,
-	petownername text NOT NULL,
-	caretakername text NOT NULL,
-	starttime date NOT NULL,
-	endtime date NOT NULL,
-	FOREIGN KEY (petid) REFERENCES Pets(petid),
-	unique (starttime, endtime)
-);
-
-INSERT INTO Appointments(petid,petownername,caretakername,starttime,endtime)
-VALUES (1,'Tom','Lily','2019-02-01','2019-02-15');
-INSERT INTO Appointments(petid,petownername,caretakername,starttime,endtime)
-VALUES (2,'Jack','Kelly','2019-04-12','2019-04-20');
-
-
 CREATE TABLE Users (
 	userid SERIAL PRIMARY KEY,
 	username text NOT NULL UNIQUE,
@@ -118,7 +65,6 @@ VALUES (1);
 INSERT INTO Petowners (userid)
 VALUES (2);
 
-
 CREATE TABLE Caretakers (
 	userid integer PRIMARY KEY,
 	rate integer NULL,
@@ -137,6 +83,58 @@ VALUES(5,17);
 INSERT INTO Caretakers(userid,price)
 VALUES(6,18);
 
+CREATE TABLE AnimalSpecies (
+	animalid SERIAL PRIMARY KEY,
+	animalname varchar(64) NOT NULL
+);
+
+INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
+INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
+
+CREATE TABLE Pets(
+	petid SERIAL PRIMARY KEY,
+	petname text NOT NULL,
+	specieid integer NOT NULL,
+	ownerid integer NOT NULL,
+	FOREIGN KEY (specieid) REFERENCES AnimalSpecies(animalid),
+	FOREIGN KEY (ownerid) REFERENCES Petowners(userid)
+);
+
+INSERT INTO Pets (petname,specieid, ownerid)
+VALUES ('A',1,1);
+INSERT INTO Pets (petname,specieid, ownerid)
+VALUES ('B',2,2);
+
+CREATE TABLE Petavailabilities(
+	petid integer PRIMARY KEY,
+	starttime date NOT NULL,
+	endtime date NOT NULL,
+	unique (starttime, endtime),
+	FOREIGN KEY (petid) REFERENCES Pets(petid)
+);
+
+INSERT INTO Petavailabilities (petid,starttime,endtime)
+VALUES (1,'2019-01-01','2019-04-01');
+INSERT INTO Petavailabilities (petid,starttime,endtime)
+VALUES (2,'2019-03-01','2019-08-01');
+
+CREATE TABLE Appointments(
+	appointmentid SERIAL PRIMARY KEY,
+	petid integer NOT NULL,
+	caretakerid integer NOT NULL,
+	starttime date NOT NULL,
+	endtime date NOT NULL,
+	FOREIGN KEY (petid) REFERENCES Pets(petid),
+	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid),
+	unique (starttime, endtime)
+);
+
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
+VALUES (1, 1, '2019-02-01', '2019-02-15');
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
+VALUES (2, 2, '2019-03-12', '2019-03-20');
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
+VALUES (2, 2, '2019-03-22', '2019-03-23');
 
 CREATE TABLE AnimalServices (
 	animalid INTEGER NOT NULL,
