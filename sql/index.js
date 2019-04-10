@@ -24,9 +24,9 @@ sql.query = {
   update_area: 'UPDATE Pets SET petname=$2, specie=$3, ownername=$4 WHERE username=$1',
 
   //new petavailability ok
-  add_petavailability:'INSERT INTO petavailability(petid,starttime,endtime) VALUES($1,$2,$3)',
+  add_petavailability:'INSERT INTO petavailabilities(petid,starttime,endtime) VALUES($1,$2,$3)',
   //update petavailability ok
-  update_petavailability:'UPDATE petavailability SET starttime=$2, endtime=$3 WHERE petid=$1',
+  update_petavailability:'UPDATE petavailabilities SET starttime=$2, endtime=$3 WHERE petid=$1',
 
 
   //new appointment ok
@@ -37,24 +37,20 @@ sql.query = {
   add_petowner:'INSERT INTO petowners(userid) VALUES ($1)',
 
   //new caretaker ok
-  add_caretaker:'INSERT INTO caretakers(userid) VALUES($1)',
+  add_caretaker:'INSERT INTO caretakers(userid,rate,price) VALUES($1,$2,$3)',
 
   //new caretakeravailability ok
-  add_caretakeravailability:'INSERT INTO caretakeravailability(caretakerid, starttime, endtime) VALUES ($1,$2,$3)',
+  add_caretakeravailability:'INSERT INTO caretakeravailabilities(caretakerid, starttime, endtime) VALUES ($1,$2,$3)',
   //update caretakeravailability ok
-  update_caretakeravailability:'UPDATE caretakeravailability SET starttime=$2, endtime=$3 WHERE caretakerid=$1',
-
-  //new service ok
-  add_service:'INSERT INTO service(caretakerid,rate,price) VALUES ($1,$2,$3)',
-  update_service:'UPDATE service SET rate=$2,price=$3 WHERE caretakerid=$1',
+  update_caretakeravailability:'UPDATE caretakeravailabilities SET starttime=$2, endtime=$3 WHERE caretakerid=$1',
 
   //new rate ok
-  add_rate: 'INSERT INTO Rate(appointmentid, caretakerid, rate, comment) VALUES($1,$2,$3,$4)',
+  add_rate: 'INSERT INTO Rates(appointmentid, caretakerid, rate, comment) VALUES($1,$2,$3,$4)',
   //delete rate ok
-  delete_rate: 'DELETE FROM rate where appointmentid=$1',
+  delete_rate: 'DELETE FROM Rates where appointmentid=$1',
 
   //new payment ok
-  add_payment: 'INSERT INTO Payment(paymentid, credit,petownerid) VALUES($1,$2,$3)',
+  add_payment: 'INSERT INTO Payments(paymentid, credit,petownerid) VALUES($1,$2,$3)',
 
 
   //new account ok
@@ -71,6 +67,11 @@ sql.query = {
   inquire_appointment: 'SELECT * FROM appointments, Petowners, Users WHERE appointments.petid=Petowners.userid and Petowners.userid=Users.userid and Users.userid=$2',
 
   find_location_id: "SELECT areaid FROM areas where areaname=$1",
+
+  find_appointment: "SELECT caretakerid, starttime, endtime FROM Caretakeravailabilities as avails where avails.caretakerid in (\
+    SELECT users.userid FROM users inner join Caretakers on users.userid = caretakers.userid where areaid = $1\
+    and $2 in (SELECT distinct animalname FROM AnimalSpecies natural join AnimalServices where AnimalServices.caretakerid = avails.caretakerid)\
+  ) and avails.starttime >= $3 and avails.endtime <= $4;"
 
 }
 

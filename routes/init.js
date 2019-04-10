@@ -15,11 +15,11 @@ const salt  = bcrypt.genSaltSync(round);
 function initRouter(app) {
 	/* GET */
 	app.get('/', index );
-	app.get('/listings', listings); //let do get for now. post later. Should it be protected?
 	app.get('/orderdetails', orderdetails); //let do get for now. post later. Should it be protected?
 	app.get('/pricing', pricing); //let do get for now. post later. Should it be protected?
 	app.get('/review', review); //let do get for now. post later. Should it be protected?
-	app.get('/signin', signin); //let do get for now. post later. Should it be protected?
+	app.get('/login_page', login_page); //let do get for now. post later. Should it be protected?
+	app.get('/loginfail', loginfail); //let do get for now. post later. Should it be protected?
 
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
@@ -34,20 +34,28 @@ function initRouter(app) {
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
 	app.post('/update_pass', passport.authMiddleware(), update_pass);
-	app.post('/listings', passport.authMiddleware(), listings);
+	app.post('/listings', loggedIn, listings);
 
-	app.post('/reg_user'   , passport.antiMiddleware(), reg_user   );
+	app.post('/reg_user', passport.antiMiddleware(), reg_user);
 
 	/* LOGIN */
 	app.post('/login', passport.authenticate('local', {
-		successRedirect: '/listings',
-		failureRedirect: '/'
+		successRedirect: '/',
+		failureRedirect: '/loginfail'
 	}));
 
 	/* LOGOUT */
 	app.get('/logout', passport.authMiddleware(), logout);
 }
 
+// Middleware to redirect if not logged in
+function loggedIn(req, res, next) {
+	if (req.user) {
+			next();
+	} else {
+			res.redirect('/login_page');
+	}
+}
 
 // Render Function
 function basic(req, res, page, other) {
@@ -81,10 +89,6 @@ function userinfo(req, res, next) {
 	basic(req, res, 'userinfo', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
 }
 
-function listings(req, res, next) {
-	res.render('listings', { page: 'listings', auth: true });
-}
-
 function orderdetails(req, res, next) {
 	res.render('orderdetails', { page: 'orderdetails', auth: true });
 }
@@ -109,11 +113,49 @@ function register(req, res, next) {
 	res.render('register', { page: 'register', auth: false });
 }
 
-function signin(req, res, next) {
-	res.render('signin', { page: 'signin', auth: false });
+function login_page(req, res, next) {
+	res.render('login_page', { page: 'login_page', auth: false });
+}
+
+function loginfail(req, res, next) {
+	res.render('loginfail', { page: 'loginfail', auth: false });
 }
 
 // POST
+function listings(req, res, next) {
+	var username  = req.user.username;
+	var location = req.body.location;
+	var startdate  = req.body.startdate;
+	var enddate  = req.body.enddate;
+	var specie = req.body.specie;
+	var locationid;
+	console.log(req.body);
+	console.log("in listings", location, specie, startdate, enddate);
+
+
+	pool.query(sql_query.query.find_location_id, [location], (err, data) => {
+		if(err) {
+			console.error("Location does not exist", err);
+			res.redirect('/listings?reg=fail');
+		} else {
+			console.log(locationid = data);
+			console.log(locationid = data.rows);
+			locationid = data.rows[0]["areaid"];
+			console.log("locationid", locationid);
+		}
+	});
+
+	pool.query(sql_query.query.find_appointment, [locationid, specie, startdate, enddate], (err, data) => {
+		if(err) {
+			console.error("Error in find appointment", err);
+			res.redirect('/listings?info=fail');
+		} else {
+			console.log("data", data);
+			res.render('listings', { page: 'listings', auth: true, data: data });
+		}
+	})
+}
+
 function update_info(req, res, next) {
 	var username  = req.user.username;
 	var firstname = req.body.firstname;

@@ -32,19 +32,19 @@
 						<div id="search_form" class="search_top text-center">
 								<h3>Make a search</h3>
 								<p>search for your pet care taker</p>
-								<form action="/listings" method="post" class="ban-form row mb-5">
+								<form action="listings" method="post" class="ban-form row mb-5">
 									<div class="form-group">
 										<div class="form-row">
 											<div class="col-md-6 banf">
 													<label for="startdate">Location</label>
-													<select class="form-control" id="location">
+													<select class="form-control" id="location" name="location">
 															<option>Singapore</option>
 															<option>Taipei</option>
 													</select>
 											</div>
 											<div class="col-md-6 banf">
 													<label for="enddate">Animal</label>
-													<select class="form-control" id="specie">
+													<select class="form-control" id="specie" name="specie">
 															<option>Dog</option>
 															<option>Cat</option>
 													</select>
@@ -55,7 +55,7 @@
 										<div class="form-row">
 											<div class="col-md-6 banf">
 													<label for="startdate">Start date</label>
-													<input class="form-control" type="date" id="startdate" name="trip-start" value="2019-04-01" min="2019-04-01" max="2019-12-31">
+													<input class="form-control" type="date" id="startdate" name="startdate" value="2019-04-01" min="2019-04-01" max="2019-12-31">
 													<div class="container">
 															<div class="row">
 																	<script>
@@ -68,7 +68,7 @@
 											</div>
 											<div class="col-md-6 banf">
 													<label for="enddate">End date</label>
-													<input class="form-control" type="date" id="enddate" name="trip-start" value="2019-04-01" min="2019-04-01" max="2019-12-31">
+													<input class="form-control" type="date" id="enddate" name="enddate" value="2019-04-01" min="2019-04-01" max="2019-12-31">
 													<div class="container">
 															<div class="row">
 																	<script>

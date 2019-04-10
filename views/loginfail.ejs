@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>News</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="keywords" content=""/>
+        <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <link href="css/fontawesome-all.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    </head>
+    <body>
+        <!--/banner-w3layouts-sec-->
+        <div class="banner-w3layouts two">
+            <header>
+              <%- include navbar.ejs %>
+            </header>
+            <!--banner-w3layouts-->
+            <div class="container py-lg-4 py-3 align-middle">
+              <h3 class="text-white text-center">Log in&nbsp;</h3>
+            </div>
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item">
+                    <a href="index.html">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Log in</li>
+            </ol>
+            <div class="banner-w3layouts-info two">
+                <!--/search_form -->
+                <div id="banner-w3layouts-info" class="search_top text-center"> </div>
+                <!--//banner-w3layouts-info -->
+            </div>
+            <!--//banner-w3layouts-->
+        </div>
+        <!--/main-->
+        <!--/banner-w3layouts-bottom -->
+        <div class="card-body">
+          <p>Login Fail. Please <a href="\login_page">retry</a></p>
+        </div>
+        <!--/main-->
+        <footer style="background-color: rgba(15, 14, 15, 0.51);">
+          <%- include footer.ejs %>
+        </footer>
+        <!-- js -->
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <!-- //js -->
+        <!-- password-script -->
+        <script>
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+        <!-- //password-script -->
+        <!--/ start-smoth-scrolling -->
+        <script src="js/move-top.js"></script>
+        <script src="js/easing.js"></script>
+        <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
+			});
+		});
+	</script>
+        <!--// end-smoth-scrolling -->
+        <script>
+		$(document).ready(function () {
+			/*
+									var defaults = {
+							  			containerID: 'toTop', // fading element id
+										containerHoverID: 'toTopHover', // fading element hover id
+										scrollSpeed: 1200,
+										easingType: 'linear'
+							 		};
+									*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+        <!-- //Custom-JavaScript-File-Links -->
+        <script src="js/bootstrap.js"></script>
+    </body>
+</html>
