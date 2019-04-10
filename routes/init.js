@@ -102,8 +102,7 @@ function review(req, res, next) {
 }
 
 function confirmation(req, res, next) {
-	console.log(req.body);
-	res.render('confirmation', { page: 'confirmation', auth: true });
+	res.render('confirmation', { page: 'confirmation', auth: true, data: req.query });
 }
 
 function appointments(req, res, next) {
