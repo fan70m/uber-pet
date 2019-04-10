@@ -24,6 +24,11 @@ CREATE TABLE Accounts(
 	CONSTRAINT for_key_account FOREIGN KEY (userid) REFERENCES Users(userid) DEFERRABLE INITIALLY IMMEDIATE
 );
 
+CREATE TABLE Petowners (
+	userid integer PRIMARY KEY,
+	FOREIGN KEY (userid) REFERENCES Users(userid)
+);
+
 CREATE OR REPLACE FUNCTION create_account() RETURNS TRIGGER AS
 $BODY$
 BEGIN
@@ -34,7 +39,19 @@ END;
 $BODY$
 language plpgsql;
 
-CREATE TRIGGER create_account_trig BEFORE INSERT ON Users FOR EACH ROW EXECUTE PROCEDURE create_account();
+CREATE TRIGGER create_account_trig AFTER INSERT ON Users FOR EACH ROW EXECUTE PROCEDURE create_account();
+
+CREATE OR REPLACE FUNCTION create_petonwers() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+ INSERT INTO Petowners(userid)
+ VALUES (new.userid);
+ RETURN new;
+END;
+$BODY$
+language plpgsql;
+
+CREATE TRIGGER create_petonwers AFTER INSERT ON Users FOR EACH ROW EXECUTE PROCEDURE create_petonwers();
 
 START TRANSACTION;
 
@@ -55,17 +72,12 @@ VALUES ('blablabla@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42N
 
 COMMIT TRANSACTION;
 
-CREATE TABLE Petowners (
-	userid integer PRIMARY KEY,
-	FOREIGN KEY (userid) REFERENCES Users(userid)
-);
-
-INSERT INTO Petowners (userid)
-VALUES (1);
-INSERT INTO Petowners (userid)
-VALUES (2);
-INSERT INTO Petowners (userid)
-VALUES (3);
+-- INSERT INTO Petowners (userid)
+-- VALUES (1);
+-- INSERT INTO Petowners (userid)
+-- VALUES (2);
+-- INSERT INTO Petowners (userid)
+-- VALUES (3);
 
 CREATE TABLE Caretakers (
 	userid integer PRIMARY KEY,
