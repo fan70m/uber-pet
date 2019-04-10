@@ -74,10 +74,8 @@ CREATE TABLE Users (
 CREATE TABLE Accounts(
 	userid integer PRIMARY KEY,
 	balance integer NOT NULL,
-	CONSTRAINT for_key_account FOREIGN KEY (userid) REFERENCES Users(userid)
+	CONSTRAINT for_key_account FOREIGN KEY (userid) REFERENCES Users(userid) DEFERRABLE INITIALLY IMMEDIATE
 );
-
-ALTER TABLE Accounts ALTER CONSTRAINT for_key_account DEFERRABLE INITIALLY IMMEDIATE;
 
 CREATE OR REPLACE FUNCTION create_account() RETURNS TRIGGER AS
 $BODY$
