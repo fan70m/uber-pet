@@ -29,7 +29,8 @@ function initRouter(app) {
 	app.get('/register' , passport.antiMiddleware(), register );
 	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
 	app.get('/confirmation', passport.authMiddleware(), confirmation);
-	app.get('/pricing', passport.authMiddleware(), pricing); //let do get for now. post later. Should it be protected?
+	app.get('/pricing', passport.authMiddleware(), pricing);
+	app.get('/choose_pet', passport.authMiddleware(), choose_pet); //let do get for now. post later. Should it be protected?
 
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
@@ -93,16 +94,8 @@ function orderdetails(req, res, next) {
 	res.render('orderdetails', { page: 'orderdetails', auth: true });
 }
 
-function pricing(req, res, next) {
-	res.render('pricing', { page: 'pricing', auth: true });
-}
-
 function review(req, res, next) {
 	res.render('review', { page: 'review', auth: true });
-}
-
-function confirmation(req, res, next) {
-	res.render('confirmation', { page: 'confirmation', auth: true, data: req.query });
 }
 
 function appointments(req, res, next) {
@@ -125,6 +118,52 @@ function loginfail(req, res, next) {
 	res.render('loginfail', { page: 'loginfail', auth: false });
 }
 
+function choose_pet(req, res, next) {
+	var username = req.user.username;
+	pool.query(sql_query.query.find_pets, [username], (err, data) => {
+		if(err) {
+			console.error("Error in find pets", err);
+			res.redirect('/choose_pet?info=fail');
+		} else {
+			console.log(data);
+			res.render('choose_pet', { data: data, page: 'choose_pet', query: req.query,  auth: true });
+		}
+	})
+}
+
+function confirmation(req, res, next) {
+	var petid = req.query.petid;
+
+	pool.query(sql_query.query.find_petname, [petid], (err, data) => {
+		if(err) {
+			console.error("Error in find pets", err);
+			res.redirect('/confirmation?info=fail');
+		} else {
+			console.log(data);
+			res.render('confirmation', { page: 'confirmation', auth: true, data: data, ...req.query});
+		}
+	})
+}
+
+function pricing(req, res, next) {
+	var petid = req.query.petid;
+	var caretakerid = req.query.caretakerid;
+	var starttime = req.query.starttime;
+	var endtime = req.query.endtime;
+	var db_starttime = req.query.db_starttime;
+	var db_endtime = req.query.db_endtime;
+	pool.query(sql_query.query.make_appointment, [petid, caretakerid, starttime, endtime], (err, data) => {
+		if(err) {
+			console.error("Error in find pets", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			res.render('confirmation', { page: 'confirmation', auth: true, query: req.query, data: data});
+		}
+	})
+	res.render('pricing', { page: 'pricing', auth: true });
+}
+
 // POST
 function listings(req, res, next) {
 	var username  = req.user.username;
@@ -141,8 +180,7 @@ function listings(req, res, next) {
 		} else {
 			console.log("args", locationid, specie, starttime, endtime);
 			console.log(data);
-			console.log(data.rows[0].starttime);
-			res.render('listings', { page: 'listings', auth: true, data: data });
+			res.render('listings', { page: 'listings', auth: true, data: data, starttime: starttime, endtime: endtime });
 		}
 	})
 }
@@ -211,7 +249,6 @@ function reg_user(req, res, next) {
 		}
 	});
 }
-
 
 // LOGOUT
 function logout(req, res, next) {

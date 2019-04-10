@@ -52,7 +52,6 @@ sql.query = {
   //new payment ok
   add_payment: 'INSERT INTO Payments(paymentid, credit,petownerid) VALUES($1,$2,$3)',
 
-
   //new account ok
   add_account: 'INSERT INTO Accounts(accountid, balance, userid) VALUES($1,$2,$3)',
 
@@ -75,7 +74,16 @@ sql.query = {
     ) AND avails.starttime <= $1\
     AND avails.endtime >= $2\
     AND $3 IN (SELECT distinct animalname FROM AnimalSpecies natural join AnimalServices where AnimalServices.caretakerid = avails.caretakerid)) \
-  SELECT caretakerid, rate, price, starttime, endtime FROM all_possible_caretakers INNER JOIN caretakers ON caretakers.userid = all_possible_caretakers.caretakerid;"
+  SELECT caretakerid, rate, price, starttime, endtime FROM all_possible_caretakers INNER JOIN caretakers ON caretakers.userid = all_possible_caretakers.caretakerid;",
+
+  find_pets: "SELECT petid, petname, specieid FROM pets WHERE ownerid = (SELECT userid FROM users WHERE username = $1);",
+
+  find_price: "SELECT price FROM caretakers where caretakerid = $1;",
+
+  find_petname: "SELECT petname FROM pets where petid = $1;",
+
+  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);"
+
 }
 
 module.exports = sql

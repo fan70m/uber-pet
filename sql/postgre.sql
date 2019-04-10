@@ -64,6 +64,8 @@ INSERT INTO Petowners (userid)
 VALUES (1);
 INSERT INTO Petowners (userid)
 VALUES (2);
+INSERT INTO Petowners (userid)
+VALUES (3);
 
 CREATE TABLE Caretakers (
 	userid integer PRIMARY KEY,
@@ -104,6 +106,10 @@ INSERT INTO Pets (petname,specieid, ownerid)
 VALUES ('A',1,1);
 INSERT INTO Pets (petname,specieid, ownerid)
 VALUES ('B',2,2);
+INSERT INTO Pets (petname,specieid, ownerid)
+VALUES ('Ac',1,3);
+INSERT INTO Pets (petname,specieid, ownerid)
+VALUES ('By',2,3);
 
 CREATE TABLE Petavailabilities(
 	petid integer PRIMARY KEY,
@@ -125,8 +131,7 @@ CREATE TABLE Appointments(
 	starttime date NOT NULL,
 	endtime date NOT NULL,
 	FOREIGN KEY (petid) REFERENCES Pets(petid),
-	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid),
-	unique (starttime, endtime)
+	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
 );
 
 INSERT INTO Appointments(petid, caretakerid, starttime, endtime)

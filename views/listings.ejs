@@ -68,25 +68,12 @@
                                 <p>Caretaker ID: <%= data.rows[i].caretakerid %></p>
                                 <p>Rating: <%= data.rows[i].rate %></p>
                                 <p>Price: <%= data.rows[i].price %></p>
-                                <p>Start Time: <%= formatDate(data.rows[i].starttime) %></p>
-                                <p>End Time: <%= formatDate(data.rows[i].endtime) %></p>
-                                <a href= "/confirmation?caretakerid=<%= data.rows[i].caretakerid %>&price=<%= data.rows[i].price %>&starttime=<%= formatDate(data.rows[i].starttime) %>&endtime=<%= formatDate(data.rows[i].endtime)%>" >Select</a>
+                                <p>Start Time: <%= starttime %></p>
+                                <p>End Time: <%= endtime %></p>
+                                <a href= "/choose_pet?caretakerid=<%= data.rows[i].caretakerid %>&price=<%=data.rows[i].price%>&starttime=<%= starttime %>&endtime=<%= endtime %>&db_starttime<%= formatDate(data.rows[i].starttime) %>&db_endtime=<%= formatDate(data.rows[i].endtime)%>" >Select</a>
                             </div>
                         </li>
                     <% } %>
-
-                    <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
-                        <div>
-                            <p>hello</p>
-                            <a href="some.html">Select</a>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
-                        <div>
-                            <p>hello</p>
-                            <a href="some.html">Select</a>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </section>
