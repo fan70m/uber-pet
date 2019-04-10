@@ -71,6 +71,30 @@ CREATE TABLE Users (
 	FOREIGN KEY (areaid) REFERENCES Areas(areaid)
 );
 
+CREATE TABLE Accounts(
+	userid integer PRIMARY KEY,
+	balance integer NOT NULL,
+	CONSTRAINT for_key_account FOREIGN KEY (userid) REFERENCES Users(userid)
+);
+
+ALTER TABLE Accounts ALTER CONSTRAINT for_key_account DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE OR REPLACE FUNCTION create_account() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+	INSERT INTO Accounts(userid, balance)
+	VALUES(new.userid, 0);
+	RETURN new;
+END;
+$BODY$
+language plpgsql;
+
+CREATE TRIGGER create_account_trig BEFORE INSERT ON Users FOR EACH ROW EXECUTE PROCEDURE create_account();
+
+START TRANSACTION;
+
+SET CONSTRAINTS ALL DEFERRED;
+
 INSERT INTO Users (username, password, first_name, last_name, areaid)
 VALUES ('username@gmail.com', '$2b$10$vS4KkX8uenTCNooir9vyUuAuX5gUhSGVql8yQdsDDD4TG8bSUjkt.', 'Fan', 'Chen', 1);
 INSERT INTO Users (username, password, first_name, last_name, areaid)
@@ -83,6 +107,8 @@ INSERT INTO Users (username, password, first_name, last_name, areaid)
 VALUES ('blabla@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'caretaker4', 'area2', 2);
 INSERT INTO Users (username, password, first_name, last_name, areaid)
 VALUES ('blablabla@gmail.com', '$2b$10$Pdcb3BDaN1wATBHyZ0Fymurw1Js01F9nv6xgff42NfOmTrdXT1A.i', 'caretaker4', 'area2', 2);
+
+COMMIT TRANSACTION;
 
 CREATE TABLE Petowners (
 	userid integer PRIMARY KEY,
@@ -180,17 +206,3 @@ INSERT INTO Payments(credit,petownerid)
 VALUES(600,1);
 INSERT INTO Payments(credit,petownerid)
 VALUES(450,2);
-
-
-
-CREATE TABLE Accounts(
-	accountid SERIAL PRIMARY KEY,
-	balance integer NOT NULL,
-	userid integer,
-	FOREIGN KEY (userid) REFERENCES Users(userid)
-);
-
-INSERT INTO Accounts(balance, userid)
-VALUES(1000,1);
-INSERT INTO Accounts(balance, userid)
-VALUES(1500,2);
