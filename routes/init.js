@@ -27,9 +27,9 @@ function initRouter(app) {
 	app.get('/userinfo', passport.authMiddleware(), userinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
 	app.get('/appointments', passport.authMiddleware(), appointments);
-
 	app.get('/register' , passport.antiMiddleware(), register );
 	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
+	app.get('/confirmation', passport.authMiddleware(), confirmation);
 
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
@@ -101,6 +101,11 @@ function review(req, res, next) {
 	res.render('review', { page: 'review', auth: true });
 }
 
+function confirmation(req, res, next) {
+	console.log(req.body);
+	res.render('confirmation', { page: 'confirmation', auth: true });
+}
+
 function appointments(req, res, next) {
 	res.render('appointments', { page: 'appointments', auth: true });
 }
@@ -127,30 +132,26 @@ function listings(req, res, next) {
 	var location = req.body.location;
 	var startdate  = req.body.startdate;
 	var enddate  = req.body.enddate;
-	var specie = req.body.specie;
+	var specie = req.body.specie.toLowerCase();
 	var locationid;
-	console.log(req.body);
-	console.log("in listings", location, specie, startdate, enddate);
-
 
 	pool.query(sql_query.query.find_location_id, [location], (err, data) => {
 		if(err) {
 			console.error("Location does not exist", err);
 			res.redirect('/listings?reg=fail');
 		} else {
-			console.log(locationid = data);
-			console.log(locationid = data.rows);
 			locationid = data.rows[0]["areaid"];
-			console.log("locationid", locationid);
 		}
 	});
 
-	pool.query(sql_query.query.find_appointment, [locationid, specie, startdate, enddate], (err, data) => {
+	pool.query(sql_query.query.find_appointment, [], (err, data) => {
 		if(err) {
 			console.error("Error in find appointment", err);
 			res.redirect('/listings?info=fail');
 		} else {
-			console.log("data", data);
+			console.log("args", locationid, specie, startdate, enddate);
+			console.log(data);
+			console.log(data.rows[0].starttime);
 			res.render('listings', { page: 'listings', auth: true, data: data });
 		}
 	})

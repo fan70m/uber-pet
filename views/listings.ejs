@@ -25,13 +25,13 @@
         <!--/banner-w3layouts-sec-->
         <div class="banner-w3layouts two">
             <header>
-								<%- include navbar.ejs %>
+				<%- include navbar.ejs %>
             </header>
             <!--banner-w3layouts-->
             <div class="banner-w3layouts-info two">
                 <!--/search_form -->
                 <div id="banner-w3layouts-info" class="search_top text-center">
-                    <p>Select your care taker</p>
+                    <p>Select your caretaker</p>
                     <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item">
                             <a href="index.html">Home</a>
@@ -45,86 +45,47 @@
         </div>
         <!--/main-->
         <!--/projects -->
+        <%
+        formatDate = function(date) {
+            var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [day, month, year].join('-');
+        }
+        %>
         <section class="banner-w3layouts-bottom py-lg-5 py-3" style="text-transform: none;">
             <div class="container-fluid py-lg-4 py-3">
                 <h3 class="tittle text-center mx-auto mb-lg-4 mb-3">List of care taker</h3>
                 <ul class="portfolio-area clearfix">
-                    <li class="portfolio-item2" data-id="id-0" data-type="cat-item-4">
+                    <% for (var i = 0; i < data.rows.length; i++) { %>
+                        <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
+                            <div>
+                                <p>Rating: <%= data.rows[i].rate %></p>
+                                <p>Price: <%= data.rows[i].price %></p>
+                                <p>Start Time: <%= formatDate(data.rows[i].starttime) %></p>
+                                <p>End Time: <%= formatDate(data.rows[i].endtime) %></p>
+                                <a href= "/confirmation?caretakerid=<%= data.rows[i].caretakerid %>&starttime=<%= formatDate(data.rows[i].starttime) %>&endtime=<%= formatDate(data.rows[i].endtime)%>" >Select</a>
+                            </div>
+                        </li>
+                    <% } %>
+
+                    <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
                         <div>
-                            <span class="image-block img-hover"> <a class="image-zoom rounded" href="images/g4.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
+                            <p>hello</p>
+                            <a href="some.html">Select</a>
                         </div>
                     </li>
                     <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
                         <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g5.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
+                            <p>hello</p>
+                            <a href="some.html">Select</a>
                         </div>
                     </li>
-                    <li class="portfolio-item2" data-id="id-2" data-type="cat-item-1">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g6.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-3" data-type="cat-item-4">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g7.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-4" data-type="cat-item-3">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g8.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-5" data-type="cat-item-2">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g9.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-6" data-type="cat-item-1">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g1.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-7" data-type="cat-item-1">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g2.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-9" data-type="cat-item-4">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g3.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-9" data-type="cat-item-3">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g5.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-10" data-type="cat-item-2">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g4.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-8" data-type="cat-item-1">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g9.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-9" data-type="cat-item-3">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g6.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-10" data-type="cat-item-2">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g8.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <li class="portfolio-item2" data-id="id-8" data-type="cat-item-1">
-                        <div>
-                            <span class="image-block"> <a class="image-zoom" href="images/g6.jpg" data-gal="prettyPhoto[gallery]"> </a> </span>
-                        </div>
-                    </li>
-                    <a href="/orderdetails" class="float-right text-dark font-weight-bold bg-info mw-100 h-50 border border-secondary align-middle p-2 text-center mt-2 mb-auto mr-5 w-25">Next</a>
                 </ul>
             </div>
         </section>

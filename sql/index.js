@@ -68,13 +68,9 @@ sql.query = {
 
   find_location_id: "SELECT areaid FROM areas where areaname=$1",
 
-  find_appointment: "SELECT caretakerid, starttime, endtime FROM Caretakeravailabilities as avails where avails.caretakerid in (\
-    SELECT users.userid FROM users inner join Caretakers on users.userid = caretakers.userid where areaid = $1\
-    and $2 in (SELECT distinct animalname FROM AnimalSpecies natural join AnimalServices where AnimalServices.caretakerid = avails.caretakerid)\
-  ) and avails.starttime >= $3 and avails.endtime <= $4;"
+  find_appointment: "with all_possible_caretakers as (SELECT caretakerid, starttime :: DATE, endtime FROM Caretakeravailabilities as avails)\
+  SELECT caretakerid, rate, price, starttime, endtime from all_possible_caretakers inner join caretakers on caretakers.userid = all_possible_caretakers.caretakerid;"
 
 }
-
-console.log("hello");
 
 module.exports = sql
