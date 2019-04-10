@@ -71,7 +71,7 @@ sql.query = {
   find_appointment: "WITH all_possible_caretakers AS (\
     SELECT caretakerid, starttime, endtime FROM Caretakeravailabilities AS avails\
     WHERE avails.caretakerid IN (\
-      SELECT users.userid FROM Users INNER JOIN Caretakers ON users.userid = caretakers.userid WHERE areaid = 1\
+      SELECT users.userid FROM Users INNER JOIN Caretakers ON users.userid = caretakers.userid WHERE areaid = (SELECT areaid FROM areas where areaname=$4)\
     ) AND avails.starttime <= $1\
     AND avails.endtime >= $2\
     AND $3 IN (SELECT distinct animalname FROM AnimalSpecies natural join AnimalServices where AnimalServices.caretakerid = avails.caretakerid)) \

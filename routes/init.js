@@ -134,16 +134,7 @@ function listings(req, res, next) {
 	var specie = req.body.specie.toLowerCase();
 	var locationid;
 
-	pool.query(sql_query.query.find_location_id, [location], (err, data) => {
-		if(err) {
-			console.error("Location does not exist", err);
-			res.redirect('/listings?reg=fail');
-		} else {
-			locationid = data.rows[0]["areaid"];
-		}
-	});
-
-	pool.query(sql_query.query.find_appointment, [starttime, endtime, specie], (err, data) => {
+	pool.query(sql_query.query.find_appointment, [starttime, endtime, specie, location], (err, data) => {
 		if(err) {
 			console.error("Error in find appointment", err);
 			res.redirect('/listings?info=fail');
