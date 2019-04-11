@@ -218,7 +218,7 @@ function listings(req, res, next) {
 	pool.query(sql_query.query.find_appointment, [starttime, endtime, specie, location], (err, data) => {
 		if(err) {
 			console.error("Error in find appointment", err);
-			res.redirect('/listings?info=fail');
+			res.redirect('/?info=fail');
 		} else {
 			console.log("args", locationid, specie, starttime, endtime);
 			console.log(data);
