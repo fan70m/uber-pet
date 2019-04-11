@@ -154,6 +154,8 @@ INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
 VALUES (2, 2, '2019-03-12', '2019-03-20');
 INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
 VALUES (2, 2, '2019-03-22', '2019-03-23');
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
+VALUES (4, 4, '2019-04-01', '2019-04-01');
 
 CREATE TABLE AnimalServices (
 	animalid INTEGER NOT NULL,
@@ -205,10 +207,28 @@ CREATE TABLE Rates(
 	FOREIGN KEY (caretakerid) REFERENCES Users(userid)
 );
 
+CREATE OR REPLACE FUNCTION update_rate() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+	UPDATE Caretakers SET rate = CASE
+		WHEN (select sum(rate) from Rates where caretakerid = NEW.caretakerid) IS NULL
+		THEN NEW.rate
+		ELSE ((select sum(rate) from Rates where caretakerid = NEW.caretakerid) + NEW.rate) / ((select count(1) from Rates where caretakerid = NEW.caretakerid)+1)
+	END
+	WHERE userid = NEW.caretakerid;
+	RETURN new;
+END;
+$BODY$
+language plpgsql;
+
+CREATE TRIGGER update_rate AFTER INSERT ON Rates FOR EACH ROW EXECUTE PROCEDURE update_rate();
+
 INSERT INTO rates(appointmentid,caretakerid,rate,comment)
 VALUES(1,1,4,'He is good');
 INSERT INTO rates(appointmentid,caretakerid,rate,comment)
 VALUES(2,2,3,'He is bad');
+INSERT INTO rates(appointmentid,caretakerid,rate)
+VALUES(3,2,2);
 
 CREATE TABLE Payments(
 	paymentid SERIAL PRIMARY KEY,
