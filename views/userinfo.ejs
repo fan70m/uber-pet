@@ -1,4 +1,192 @@
 <!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>Tours</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="keywords" content=""/>
+        <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <link href="css/fontawesome-all.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    </head>
+    <body class="position-relative">
+        <!--/banner-w3layouts-sec-->
+        <div class="banner-w3layouts two">
+            <header>
+								<%- include navbar.ejs %>
+            </header>
+            <!--banner-w3layouts-->
+            <h3 class="font-weight-bold bg-light text-white text-xl-center">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Profile for Pet Owner</h3>
+            <div class="banner-w3layouts-info two">
+                <!--/search_form -->
+                <div id="banner-w3layouts-info" class="search_top text-center">
+                    <p></p>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+                <!--//banner-w3layouts-info -->
+            </div>
+            <!--//banner-w3layouts-->
+				</div>
+        <!--/main-->
+				<div id="content-wrapper">
+						<div class="container-fluid">
+							<div class="card mb-3">
+									<div class="card-header">
+										<i class="fas fa-address-card"></i> &nbsp; Add a Pet
+									</div>
+									<form method="post" action="/add_pet">
+										<div class="card-body">
+											<div class="form-group row">
+												<label for="firstname" class="col-sm-2 col-form-label"><b>Pet Name</b></label>
+												<div class="col-sm-4">
+													<input type="text" required="required" class="form-control" id="petname" placeholder="Enter Pet Name" name="petname">
+												</div>
+												<label for="username" class="col-sm-2 col-form-label"><b>Pet type</b></label>
+												<div class="col-sm-4">
+														<select class="form-control" required="required" id="pettype" name = "pettype">
+																<option>dog</option>
+																<option>cat</option>
+																<option>rabbit</option>
+																<option>other</option>
+														</select>
+												</div>
+											</div>
+										</div>
+										<div class="card-footer small text-muted"><button type="submit" class="btn btn-primary bg-warning mt-2">Add a pet</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= info_msg %></span></div>
+									</form>
+								</div>
+
+							<div class="card mb-3">
+								<div class="card-header">
+									<i class="fas fa-address-card"></i> &nbsp; Basic Information
+								</div>
+								<form method="post" action="/update_info">
+									<div class="card-body">
+										<div class="form-group row">
+											<label for="username" class="col-sm-2 col-form-label"><b>Email:</b></label>
+											<div class="col-sm-4">
+												<input type="text" required="required" readonly class="form-control-plaintext" id="username" value="<%= user %>" name="username">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="firstname" class="col-sm-2 col-form-label"><b>First:</b></label>
+											<div class="col-sm-4">
+												<input type="text" required="required" class="form-control" id="firstname" placeholder="First Name" name="firstname" value="<%= firstname %>">
+											</div>
+											<label for="lastname" class="col-sm-2 col-form-label"><b>Last:</b></label>
+											<div class="col-sm-4">
+												<input type="text" required="required" class="form-control" id="lastname" placeholder="Last Name" name="lastname" value="<%= lastname %>">
+											</div>
+										</div>
+									</div>
+									<div class="card-footer small text-muted"><button type="submit" class="btn btn-primary bg-warning mt-2">Update Info</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= info_msg %></span></div>
+								</form>
+							</div>
+
+							<div class="card mb-3">
+								<div class="card-header">
+									<i class="fas fa-key"></i> &nbsp; Password
+								</div>
+								<form method="post" action="/update_pass">
+									<div class="card-body">
+										<div class="form-group row">
+											<label for="username" class="col-sm-2 col-form-label"><b>Email:</b></label>
+											<div class="col-sm-4">
+												<input type="text" required="required" readonly class="form-control-plaintext" id="username" value="<%= user %>" name="username">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="password" class="col-sm-2 col-form-label"><b>Password:</b></label>
+											<div class="col-sm-10">
+												<input type="password" required="required" class="form-control" id="password" placeholder="Your new password" name="password" pattern=".{8,}" />
+											</div>
+										</div>
+									</div>
+									<div class="card-footer small text-muted"><button type="submit" class="btn btn-primary bg-warning mt-2">Update Password</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= pass_msg %></span></div>
+								</form>
+							</div>
+						</div>
+					</div>
+        <!--//main-->
+        <!--footer-->
+        <footer>
+						<%- include footer.ejs %>
+        </footer>
+        <!---->
+        <!-- /.footer -->
+        <!-- js -->
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <!-- //js -->
+        <!-- password-script -->
+        <script>
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+        <!-- //password-script -->
+        <!--/ start-smoth-scrolling -->
+        <script src="js/move-top.js"></script>
+        <script src="js/easing.js"></script>
+        <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 900);
+			});
+		});
+	</script>
+        <!--// end-smoth-scrolling -->
+        <script>
+		$(document).ready(function () {
+			/*
+									var defaults = {
+							  			containerID: 'toTop', // fading element id
+										containerHoverID: 'toTopHover', // fading element hover id
+										scrollSpeed: 1200,
+										easingType: 'linear'
+							 		};
+									*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+        <!-- //Custom-JavaScript-File-Links -->
+        <script src="js/bootstrap.js"></script>
+    </body>
+</html>
+
+<!DOCTYPE html>
 <html>
   <head>
 		<meta charset="utf-8">
@@ -15,66 +203,3 @@
 		<!-- Custom styles for this template-->
 		<link href="stylesheets/index.css" rel="stylesheet">
   </head>
-	<body id="page-top">
-		<%- include navbar.ejs %>
-
-		<div id="wrapper">
-			<%- include sidebar.ejs %>
-
-			<div id="content-wrapper">
-				<div class="container-fluid">
-					<div class="card mb-3">
-						<div class="card-header">
-							<i class="fas fa-address-card"></i> &nbsp; Basic Information
-						</div>
-						<form method="post" action="/update_info">
-							<div class="card-body">
-								<div class="form-group row">
-									<label for="username" class="col-sm-2 col-form-label"><b>Email:</b></label>
-									<div class="col-sm-4">
-										<input type="text" required="required" readonly class="form-control-plaintext" id="username" value="<%= user %>" name="username">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="firstname" class="col-sm-2 col-form-label"><b>First:</b></label>
-									<div class="col-sm-4">
-										<input type="text" required="required" class="form-control" id="firstname" placeholder="First Name" name="firstname" value="<%= firstname %>">
-									</div>
-									<label for="lastname" class="col-sm-2 col-form-label"><b>Last:</b></label>
-									<div class="col-sm-4">
-										<input type="text" required="required" class="form-control" id="lastname" placeholder="Last Name" name="lastname" value="<%= lastname %>">
-									</div>
-								</div>
-							</div>
-							<div class="card-footer small text-muted"><button type="submit" class="btn btn-secondary">Update Info</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= info_msg %></span></div>
-						</form>
-					</div>
-
-					<div class="card mb-3">
-						<div class="card-header">
-							<i class="fas fa-key"></i> &nbsp; Password: <i>must be at least 8 characters</i>
-						</div>
-						<form method="post" action="/update_pass">
-							<div class="card-body">
-								<div class="form-group row">
-									<label for="username" class="col-sm-2 col-form-label"><b>Email:</b></label>
-									<div class="col-sm-4">
-										<input type="text" required="required" readonly class="form-control-plaintext" id="username" value="<%= user %>" name="username">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="password" class="col-sm-2 col-form-label"><b>Password:</b></label>
-									<div class="col-sm-10">
-										<input type="password" required="required" class="form-control" id="password" placeholder="Your new password" name="password" pattern=".{8,}" />
-									</div>
-								</div>
-							</div>
-							<div class="card-footer small text-muted"><button type="submit" class="btn btn-secondary">Update Password</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= pass_msg %></span></div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<%- include bottomscript.ejs %>
-  </body>

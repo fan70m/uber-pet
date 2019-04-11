@@ -19,7 +19,11 @@ sql.query = {
   update_area: 'UPDATE Areas SET areaname=$2 WHERE areaid=$1',
 
   //insert pet ok
-  add_pet: 'INSERT INTO Pets(petid, petname, specie, ownername) VALUES($1,$2,$3,$4)',
+  add_pet: "INSERT INTO Pets(petname, specieid, ownerid) \
+  VALUES($1, \
+  (select animalid from Animalspecies where animalname = $2), \
+  (select userid from Users where username = $3));",
+
   //update pet ok
   update_area: 'UPDATE Pets SET petname=$2, specie=$3, ownername=$4 WHERE username=$1',
 

@@ -104,6 +104,8 @@ CREATE TABLE AnimalSpecies (
 
 INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
 INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
+INSERT INTO AnimalSpecies (animalname) VALUES ('rabbit');
+INSERT INTO AnimalSpecies (animalname) VALUES ('other');
 
 CREATE TABLE Pets(
 	petid SERIAL PRIMARY KEY,

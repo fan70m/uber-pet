@@ -8,15 +8,15 @@
 						<li class="nav-item">
 								<a class="nav-link" href="/">Book Appointment </a>
 						</li>
+						<li class="nav-item dropdown ml-xl-2">
+							<a class="nav-link" href="/userinfo">Account</a>
+						</li>
 						<% if(auth) { %>
 						<li class="nav-item dropdown ml-xl-2">
 							<a class="nav-link" href="/logout">Logout</a>
 						</li>
 						<li class="nav-item dropdown ml-xl-2">
 							<a class="nav-link" href="/appointments">See Appointments</a>
-						</li>
-						<li class="nav-item dropdown ml-xl-2">
-							<a class="nav-link" href="/logout">Account</a>
 						</li>
 						<% } else { %>
 							<li class="nav-item dropdown ml-xl-2">

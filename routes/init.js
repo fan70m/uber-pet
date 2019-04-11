@@ -23,7 +23,7 @@ function initRouter(app) {
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
 	app.get('/pets', passport.authMiddleware(), pets);
-	app.get('/userinfo', passport.authMiddleware(), userinfo);
+	app.get('/userinfo', loggedIn, userinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
 	app.get('/appointments', passport.authMiddleware(), appointments);
 	app.get('/register' , passport.antiMiddleware(), register );
@@ -36,6 +36,8 @@ function initRouter(app) {
 	app.post('/update_info', passport.authMiddleware(), update_info);
 	app.post('/update_pass', passport.authMiddleware(), update_pass);
 	app.post('/listings', loggedIn, listings);
+	app.post('/add_pet', passport.authMiddleware(), add_pet);
+
 
 	app.post('/reg_user', passport.antiMiddleware(), reg_user);
 
@@ -195,6 +197,20 @@ function listings(req, res, next) {
 	})
 }
 
+function add_pet(req, res, next) {
+	var username  = req.user.username;
+	var petname = req.body.petname;
+	var petspecie = req.body.pettype;
+	console.log(req.body);
+	pool.query(sql_query.query.add_pet, [petname, petspecie, username], (err, data) => {
+		if(err) {
+			console.error("Error in update info", err);
+			res.redirect('/userinfo?info=fail');
+		} else {
+			res.redirect('/userinfo?info=pass');
+		}
+	});
+}
 function update_info(req, res, next) {
 	var username  = req.user.username;
 	var firstname = req.body.firstname;
