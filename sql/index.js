@@ -24,6 +24,8 @@ sql.query = {
   (select animalid from Animalspecies where animalname = $2), \
   (select userid from Users where username = $3));",
 
+  delete_pet: "DELETE FROM Pets WHERE petid = $1",
+
   //update pet ok
   update_area: 'UPDATE Pets SET petname=$2, specie=$3, ownername=$4 WHERE username=$1',
 

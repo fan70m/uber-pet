@@ -32,6 +32,7 @@ function initRouter(app) {
 	app.get('/pricing', passport.authMiddleware(), pricing);
 	app.get('/choose_pet', passport.authMiddleware(), choose_pet); //let do get for now. post later. Should it be protected?
 	app.get('/review', passport.authMiddleware(), review);
+	app.get('/delete_pet', passport.authMiddleware(), delete_pet);
 
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
@@ -186,6 +187,21 @@ function pricing(req, res, next) {
 		} else {
 			console.log(data);
 			res.render('pricing', { page: 'pricing', auth: true});
+		}
+	})
+}
+
+function delete_pet(req, res, next) {
+	var petid = req.query.petid;
+	console.log(req.query);
+
+	pool.query(sql_query.query.delete_pet, [petid], (err, data) => {
+		if(err) {
+			console.error("Error in find pets", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			res.redirect('/userinfo?info=pass');
 		}
 	})
 }
