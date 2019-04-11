@@ -40,6 +40,7 @@ function initRouter(app) {
 	app.post('/add_pet', passport.authMiddleware(), add_pet);
 	app.post('/rate', passport.authMiddleware(), rate);
 	app.post('/reg_user', passport.antiMiddleware(), reg_user);
+	app.post('/create_caretaker', passport.antiMiddleware(), create_caretaker);
 
 	/* LOGIN */
 	app.post('/login', passport.authenticate('local', {
@@ -245,6 +246,22 @@ function update_info(req, res, next) {
 		}
 	});
 }
+
+function create_caretaker(req, res, next) {
+	var username  = req.user.username;
+	var price  = req.body.price;
+	var starttime = req.body.starttime;
+	var endtime  = req.body.endtime;
+	pool.query(sql_query.query.create_caretaker_and_update_avails, [username, price, starttime, endtime], (err, data) => {
+		if(err) {
+			console.error("Error in update info");
+			res.redirect('/create_caretaker?info=fail');
+		} else {
+			res.redirect('/create_caretaker?info=pass');
+		}
+	});
+}
+
 function update_pass(req, res, next) {
 	var username = req.user.username;
 	var password = bcrypt.hashSync(req.body.password, salt);

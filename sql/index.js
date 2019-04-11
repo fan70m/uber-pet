@@ -88,6 +88,14 @@ sql.query = {
   FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
   where P.ownerid = (select userid from users where username = $1);",
 
+  create_caretaker_and_update_avails: "START TRANSACTION;\
+  INSERT INTO caretakers(userid, price) \
+  VALUES(select userid from users where username = $1, $2) \
+  ON CONFLICT (userid) DO UPDATE SET price = $2;\
+  INSERT INTO caretakeravailabilities(caretakerid, starttime, endtime) \
+  VALUES(select userid from users where username = $1, $3, $4)\
+  COMMIT TRANSACTION;\
+  "
 }
 
 module.exports = sql
