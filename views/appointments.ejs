@@ -70,6 +70,7 @@
 																<p>Pet Name: <%= data.rows[i].petname %></p>
 																<p>Start Time: <%= formatDate(data.rows[i].starttime) %></p>
 																<p>End Time: <%= formatDate(data.rows[i].endtime) %></p>
+																<a href="/review?appointmentid=<%=data.rows[i].appointmentid%>">Rate&Review</a>
                             </div>
                         </li>
                     <% } %>

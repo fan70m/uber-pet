@@ -47,9 +47,7 @@ sql.query = {
   update_caretakeravailability:'UPDATE caretakeravailabilities SET starttime=$2, endtime=$3 WHERE caretakerid=$1',
 
   //new rate ok
-  add_rate: 'INSERT INTO Rates(appointmentid, caretakerid, rate, comment) VALUES($1,$2,$3,$4)',
-  //delete rate ok
-  delete_rate: 'DELETE FROM Rates where appointmentid=$1',
+  add_rate: 'INSERT INTO Rates(appointmentid, caretakerid, comment, rate) VALUES($1,(select caretakerid from appointments where appointmentid = $1), $2, $3)',
 
   //new payment ok
   add_payment: 'INSERT INTO Payments(paymentid, credit,petownerid) VALUES($1,$2,$3)',
@@ -86,7 +84,7 @@ sql.query = {
   find_petname: "SELECT petname FROM pets where petid = $1;",
 
   //find all appointments based on owner id
-  find_appointments: "SELECT U.first_name, U.last_name, U.username, A.starttime, A.endtime, P.petname\
+  find_appointments: "SELECT U.first_name, U.last_name, U.username, A.starttime, A.endtime, P.petname, A.appointmentid\
   FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
   where P.ownerid = (select userid from users where username = $1);",
 

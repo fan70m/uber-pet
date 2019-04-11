@@ -16,9 +16,8 @@ function initRouter(app) {
 	/* GET */
 	app.get('/', index );
 	app.get('/orderdetails', orderdetails); //let do get for now. post later. Should it be protected?
-	app.get('/review', review); //let do get for now. post later. Should it be protected?
-	app.get('/login_page', login_page); //let do get for now. post later. Should it be protected?
-	app.get('/loginfail', loginfail); //let do get for now. post later. Should it be protected?
+	app.get('/login_page', login_page);
+	app.get('/loginfail', loginfail);
 
   /* PROTECTED GET */
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
@@ -31,14 +30,14 @@ function initRouter(app) {
 	app.get('/confirmation', passport.authMiddleware(), confirmation);
 	app.get('/pricing', passport.authMiddleware(), pricing);
 	app.get('/choose_pet', passport.authMiddleware(), choose_pet); //let do get for now. post later. Should it be protected?
+	app.get('/review', passport.authMiddleware(), review);
 
 	/* PROTECTED POST */
 	app.post('/update_info', passport.authMiddleware(), update_info);
 	app.post('/update_pass', passport.authMiddleware(), update_pass);
 	app.post('/listings', loggedIn, listings);
 	app.post('/add_pet', passport.authMiddleware(), add_pet);
-
-
+	app.post('/rate', passport.authMiddleware(), rate);
 	app.post('/reg_user', passport.antiMiddleware(), reg_user);
 
 	/* LOGIN */
@@ -97,7 +96,7 @@ function orderdetails(req, res, next) {
 }
 
 function review(req, res, next) {
-	res.render('review', { page: 'review', auth: true });
+	res.render('review', { page: 'review', auth: true, query: req.query});
 }
 
 function appointments(req, res, next) {
@@ -211,6 +210,23 @@ function add_pet(req, res, next) {
 		}
 	});
 }
+
+function rate(req, res, next) {
+	var appointmentid = req.query.appointmentid;
+	var message = req.body.message;
+	var rate = req.body.rate;
+	console.log(req.query);
+	console.log(req.body);
+	pool.query(sql_query.query.add_rate, [appointmentid, message, rate], (err, data) => {
+		if(err) {
+			console.error("Error in update info", err);
+			res.redirect('/review?info=fail');
+		} else {
+			res.redirect('/review?info=pass');
+		}
+	});
+}
+
 function update_info(req, res, next) {
 	var username  = req.user.username;
 	var firstname = req.body.firstname;
