@@ -90,7 +90,16 @@ function index(req, res, next) {
 }
 
 function userinfo(req, res, next) {
-	basic(req, res, 'userinfo', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
+	var username = req.user.username;
+	pool.query(sql_query.query.find_pets, [username], (err, data) => {
+		if(err) {
+			console.error("Error in find appointments", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			basic(req, res, 'userinfo', { data: data, info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
+		}
+	})
 }
 
 function caretakerinfo(req, res, next) {
