@@ -41,7 +41,9 @@ function initRouter(app) {
 	app.post('/add_pet', passport.authMiddleware(), add_pet);
 	app.post('/rate', passport.authMiddleware(), rate);
 	app.post('/reg_user', passport.antiMiddleware(), reg_user);
-	app.post('/create_caretaker', passport.antiMiddleware(), create_caretaker);
+	app.post('/create_caretaker', create_caretaker);
+	app.post('/update_price', update_price);
+	app.post('/insert_avails', insert_avails);
 
 	/* LOGIN */
 	app.post('/login', passport.authenticate('local', {
@@ -104,7 +106,16 @@ function userinfo(req, res, next) {
 }
 
 function caretakerinfo(req, res, next) {
-	basic(req, res, 'caretakerinfo', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
+	var username = req.user.username;
+	pool.query(sql_query.query.is_caretaker, [username], (err, data) => {
+		if(err) {
+			console.error("Error in find appointments", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			basic(req, res, 'caretakerinfo', { iscaretaker: data.rows[0].count == 1, info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
+		}
+	})
 }
 
 function orderdetails(req, res, next) {
@@ -178,11 +189,12 @@ function pricing(req, res, next) {
 	var endtime = req.query.endtime;
 	var db_starttime = req.query.db_starttime;
 	var db_endtime = req.query.db_endtime;
+	var price = req.query.price;
 	console.log(req.query);
 
-	pool.query(sql_query.query.make_appointment, [petid, caretakerid, starttime, endtime], (err, data) => {
+	pool.query(sql_query.query.make_matching, [petid, caretakerid, starttime, endtime, price], (err, data) => {
 		if(err) {
-			console.error("Error in find pets", err);
+			console.error("Error in make matching", err);
 			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
@@ -276,15 +288,57 @@ function create_caretaker(req, res, next) {
 	console.log("create caretaker", req.body);
 	var username  = req.user.username;
 	var price  = req.body.price;
-	var starttime = req.body.starttime;
-	var endtime  = req.body.endtime;
-	pool.query(sql_query.query.create_caretaker_and_update_avails, [username, price, starttime, endtime], (err, data) => {
+
+	//this is supposed to be a transaction but it doesn't work.
+	// pool.query(sql_query.query.create_caretaker_and_update_avails, [username, price, starttime, endtime], (err, data) => {
+	// 	if(err) {
+	// 		console.error("Error in create caretaker", err);
+	// 		res.redirect('/?info=fail');
+	// 	} else {
+	// 		console.log(data);
+	// 		res.redirect('/?info=pass');
+	// 	}
+	// });
+
+	//plan B
+	pool.query(sql_query.query.create_caretaker, [username, price], (err, data) => {
 		if(err) {
-			console.error("Error in update info", err);
-			res.redirect('/create_caretaker?info=fail');
+			console.error("Error in create caretaker", err);
+			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
-			res.redirect('/create_caretaker?info=pass');
+			res.redirect('/?info=pass');
+		}
+	});
+}
+
+function insert_avails(req, res, next){
+	var username  = req.user.username;
+	var starttime  = req.body.starttime;
+	var endtime  = req.body.endtime;
+
+	pool.query(sql_query.query.insert_avails, [username, starttime, endtime], (err, data) => {
+		if(err) {
+			console.error("Error in insert_avails", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			res.redirect('/?info=pass');
+		}
+	});
+}
+
+function update_price(req, res, next){
+	var username  = req.user.username;
+	var price  = req.body.price;
+
+	pool.query(sql_query.query.update_price, [username, price], (err, data) => {
+		if(err) {
+			console.error("Error in update_price", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			res.redirect('/?info=pass');
 		}
 	});
 }

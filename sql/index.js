@@ -37,6 +37,12 @@ sql.query = {
   //new appointment ok
   make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);",
 
+  make_matching: "START TRANSACTION;\
+  INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);\
+  UPDATE Accounts SET balance = balance + $5 WHERE userid = $2;\
+  UPDATE Accounts SET balance = balance - $5 WHERE userid = (select ownerid from pets where petid = $1);\
+  COMMIT TRANSACTION;",
+
   //new petonwnr ok
   add_petowner:'INSERT INTO petowners(userid) VALUES ($1)',
 
@@ -90,14 +96,25 @@ sql.query = {
   FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
   where P.ownerid = (select userid from users where username = $1);",
 
+  //Transaction but cannot integrate it in nodejs
   create_caretaker_and_update_avails: "START TRANSACTION;\
   INSERT INTO caretakers(userid, price) \
-  VALUES(select userid from users where username = $1, $2) \
+  VALUES((select userid from users where username = $1), $2) \
   ON CONFLICT (userid) DO UPDATE SET price = $2;\
   INSERT INTO caretakeravailabilities(caretakerid, starttime, endtime) \
-  VALUES(select userid from users where username = $1, $3, $4)\
-  COMMIT TRANSACTION;\
-  "
+  VALUES((select userid from users where username = $1), $3, $4);\
+  COMMIT TRANSACTION;",
+
+  //Plan B
+  create_caretaker: "INSERT INTO caretakers(userid, price) \
+  VALUES((select userid from users where username = $1), $2);",
+
+  insert_avails: "INSERT INTO caretakeravailabilities(caretakerid, starttime, endtime) \
+  VALUES((select userid from users where username = $1), $2, $3);",
+
+  is_caretaker: "select count(1) from caretakers where userid = (select userid from users where username = $1);",
+
+  update_price: "UPDATE Caretakers SET price = $2 where userid = (select userid from users where username = $1);"
 }
 
 module.exports = sql
