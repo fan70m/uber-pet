@@ -248,15 +248,17 @@ function update_info(req, res, next) {
 }
 
 function create_caretaker(req, res, next) {
+	console.log("create caretaker", req.body);
 	var username  = req.user.username;
 	var price  = req.body.price;
 	var starttime = req.body.starttime;
 	var endtime  = req.body.endtime;
 	pool.query(sql_query.query.create_caretaker_and_update_avails, [username, price, starttime, endtime], (err, data) => {
 		if(err) {
-			console.error("Error in update info");
+			console.error("Error in update info", err);
 			res.redirect('/create_caretaker?info=fail');
 		} else {
+			console.log(data);
 			res.redirect('/create_caretaker?info=pass');
 		}
 	});
