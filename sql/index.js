@@ -34,14 +34,19 @@ sql.query = {
   //update petavailability ok
   update_petavailability:'UPDATE petavailabilities SET starttime=$2, endtime=$3 WHERE petid=$1',
 
-  //new appointment ok
-  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);",
-
+  //Transaction doesn't work
   make_matching: "START TRANSACTION;\
   INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);\
   UPDATE Accounts SET balance = balance + $5 WHERE userid = $2;\
   UPDATE Accounts SET balance = balance - $5 WHERE userid = (select ownerid from pets where petid = $1);\
   COMMIT TRANSACTION;",
+
+  //Plan B
+  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);",
+
+  increase_caretaker_account: "UPDATE Accounts SET balance = balance + $2 WHERE userid = $1;",
+
+  decrease_petowner_account: "UPDATE Accounts SET balance = balance - $2 WHERE userid = (select ownerid from pets where petid = $1);",
 
   //new petonwnr ok
   add_petowner:'INSERT INTO petowners(userid) VALUES ($1)',

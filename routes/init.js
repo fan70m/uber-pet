@@ -203,9 +203,28 @@ function pricing(req, res, next) {
 	var price = req.query.price;
 	console.log(req.query);
 
-	pool.query(sql_query.query.make_matching, [petid, caretakerid, starttime, endtime, price], (err, data) => {
+	//Plan B because cannot do a transaction
+	pool.query(sql_query.query.make_appointment, [petid, caretakerid, starttime, endtime], (err, data) => {
 		if(err) {
-			console.error("Error in make matching", err);
+			console.error("Error in make_appointment", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+		}
+	})
+
+	pool.query(sql_query.query.increase_caretaker_account, [caretakerid, price], (err, data) => {
+		if(err) {
+			console.error("Error in increase_caretaker_account", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+		}
+	})
+
+	pool.query(sql_query.query.decrease_petowner_account, [petid, price], (err, data) => {
+		if(err) {
+			console.error("Error in decrease_petowner_account", err);
 			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
