@@ -13,10 +13,10 @@ sql.query = {
 	update_info: 'UPDATE Users SET first_name=$4, last_name=$5 WHERE username=$1',
   update_pass: 'UPDATE Users SET password=$3 WHERE username=$1',
 
-  //insert area ok
-  add_area: 'INSERT INTO Areas(areaid, areaname) VALUES($1,$2)',
-  //update area ok
-  update_area: 'UPDATE Areas SET areaname=$2 WHERE areaid=$1',
+  // //insert area ok
+  // add_area: 'INSERT INTO Areas(areaid, areaname) VALUES($1,$2)',
+  // //update area ok
+  // update_area: 'UPDATE Areas SET areaname=$2 WHERE areaid=$1',
 
   //insert pet ok
   add_pet: "INSERT INTO Pets(petname, specieid, ownerid) \
@@ -26,13 +26,12 @@ sql.query = {
 
   delete_pet: "DELETE FROM Pets WHERE petid = $1",
 
-  //update pet ok
-  update_area: 'UPDATE Pets SET petname=$2, specie=$3, ownername=$4 WHERE username=$1',
+  // update_area: 'UPDATE Pets SET petname=$2, specie=$3, ownername=$4 WHERE username=$1',
 
-  //new petavailability ok
-  add_petavailability:'INSERT INTO petavailabilities(petid,starttime,endtime) VALUES($1,$2,$3)',
-  //update petavailability ok
-  update_petavailability:'UPDATE petavailabilities SET starttime=$2, endtime=$3 WHERE petid=$1',
+  // //new petavailability ok
+  // add_petavailability:'INSERT INTO petavailabilities(petid,starttime,endtime) VALUES($1,$2,$3)',
+  // //update petavailability ok
+  // update_petavailability:'UPDATE petavailabilities SET starttime=$2, endtime=$3 WHERE petid=$1',
 
   //Transaction doesn't work
   make_matching: "START TRANSACTION;\
@@ -48,22 +47,11 @@ sql.query = {
 
   decrease_petowner_account: "UPDATE Accounts SET balance = balance - $2 WHERE userid = (select ownerid from pets where petid = $1);",
 
-  //new petonwnr ok
-  add_petowner:'INSERT INTO petowners(userid) VALUES ($1)',
-
-  //new caretaker ok
-  add_caretaker:'INSERT INTO caretakers(userid,rate,price) VALUES($1,$2,$3)',
-
-  //new caretakeravailability ok
-  add_caretakeravailability:'INSERT INTO caretakeravailabilities(caretakerid, starttime, endtime) VALUES ($1,$2,$3)',
-  //update caretakeravailability ok
-  update_caretakeravailability:'UPDATE caretakeravailabilities SET starttime=$2, endtime=$3 WHERE caretakerid=$1',
-
   //new rate ok
   add_rate: 'INSERT INTO Rates(appointmentid, caretakerid, comment, rate) VALUES($1,(select caretakerid from appointments where appointmentid = $1), $2, $3)',
 
-  //new payment ok
-  add_payment: 'INSERT INTO Payments(paymentid, credit,petownerid) VALUES($1,$2,$3)',
+  // //new payment ok
+  // add_payment: 'INSERT INTO Payments(paymentid, credit,petownerid) VALUES($1,$2,$3)',
 
   //inquire account ok
   inquire_account: 'SELECT balance FROM Accounts WHERE userid=(select userid from users where username = $1)',
@@ -113,6 +101,8 @@ sql.query = {
 
   insert_avails: "INSERT INTO caretakeravailabilities(caretakerid, starttime, endtime) \
   VALUES((select userid from users where username = $1), $2, $3);",
+  // //update caretakeravailability ok Did not use this functionality
+  // update_caretakeravailability:'UPDATE caretakeravailabilities SET starttime=$2, endtime=$3 WHERE caretakerid=$1',
 
   is_caretaker: "select count(1) from caretakers where userid = (select userid from users where username = $1);",
 
