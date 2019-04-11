@@ -99,7 +99,16 @@ function review(req, res, next) {
 }
 
 function appointments(req, res, next) {
-	res.render('appointments', { page: 'appointments', auth: true });
+	var username = req.user.username;
+	pool.query(sql_query.query.find_appointments, [username], (err, data) => {
+		if(err) {
+			console.error("Error in find appointments", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			res.render('appointments', { page: 'appointments', auth: true, data: data });
+		}
+	})
 }
 
 function pets(req, res, next) {

@@ -28,10 +28,8 @@ sql.query = {
   //update petavailability ok
   update_petavailability:'UPDATE petavailabilities SET starttime=$2, endtime=$3 WHERE petid=$1',
 
-
   //new appointment ok
-  add_appointment: 'INSERT INTO appointments(appointmentid, petid, petownername, caretakername, starttime, endtime) VALUES($1,$2,$3,$4,$5,$6)',
-
+  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);",
 
   //new petonwnr ok
   add_petowner:'INSERT INTO petowners(userid) VALUES ($1)',
@@ -67,6 +65,7 @@ sql.query = {
 
   find_location_id: "SELECT areaid FROM areas where areaname=$1",
 
+  //find caretaker that satisfies all requirements
   find_appointment: "WITH all_possible_caretakers AS (\
     SELECT caretakerid, starttime, endtime FROM Caretakeravailabilities AS avails\
     WHERE avails.caretakerid IN (\
@@ -82,7 +81,10 @@ sql.query = {
 
   find_petname: "SELECT petname FROM pets where petid = $1;",
 
-  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);"
+  //find all appointments based on owner id
+  find_appointments: "SELECT U.first_name, U.last_name, U.username, A.starttime, A.endtime, P.petname\
+  FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
+  where P.ownerid = (select userid from users where username = $1);",
 
 }
 
