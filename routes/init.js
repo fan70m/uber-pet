@@ -23,6 +23,7 @@ function initRouter(app) {
 	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
 	app.get('/pets', passport.authMiddleware(), pets);
 	app.get('/userinfo', loggedIn, userinfo);
+	app.get('/caretakerinfo', loggedIn, caretakerinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
 	app.get('/appointments', passport.authMiddleware(), appointments);
 	app.get('/register' , passport.antiMiddleware(), register );
@@ -89,6 +90,10 @@ function index(req, res, next) {
 
 function userinfo(req, res, next) {
 	basic(req, res, 'userinfo', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
+}
+
+function caretakerinfo(req, res, next) {
+	basic(req, res, 'caretakerinfo', { info_msg: msg(req, 'info', 'Information updated successfully', 'Error in updating information'), pass_msg: msg(req, 'pass', 'Password updated successfully', 'Error in updating password'), auth: true });
 }
 
 function orderdetails(req, res, next) {
