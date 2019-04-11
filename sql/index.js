@@ -3,7 +3,7 @@ const sql = {}
 sql.query = {
 
   // Insert new user ok
-  add_user: 'INSERT INTO Users (username, password, first_name, last_name, areaid) VALUES ($1,$2,$3,$4,$5)',
+  add_user: 'INSERT INTO Users (username, password, first_name, last_name, areaid) VALUES ($1,$2,$3,$4,(select areaid from areas where areaname=$5));',
   //for now, i'll just use username(email) as the primary key
 
 	// Login ok
