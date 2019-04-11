@@ -60,11 +60,8 @@ sql.query = {
   //new payment ok
   add_payment: 'INSERT INTO Payments(paymentid, credit,petownerid) VALUES($1,$2,$3)',
 
-  //new account ok
-  add_account: 'INSERT INTO Accounts(accountid, balance, userid) VALUES($1,$2,$3)',
-
   //inquire account ok
-  inquire_account: 'SELECT balance FROM Accounts WHERE userid=$3',
+  inquire_account: 'SELECT balance FROM Accounts WHERE userid=(select userid from users where username = $1)',
 
   //find pet caretaker need to choose the animal specie
 
