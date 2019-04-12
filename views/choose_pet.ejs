@@ -52,8 +52,8 @@
                     <% for (var i = 0; i < data.rows.length; i++) { %>
                         <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
                             <div>
-                                <p><%= data.rows[i].petname %></p>
-                                <p><%= data.rows[i].petid %></p>
+                                <p>Petname: <%= data.rows[i].petname %></p>
+                                <p>Pet Type: <%= data.rows[i].animalname %></p>
                                 <a href= "/confirmation?petid=<%= data.rows[i].petid %>&caretakerid=<%= query.caretakerid %>&price=<%=query.price%>&starttime=<%= query.starttime %>&endtime=<%= query.endtime %>&db_starttime<%= query.db_starttime %>&db_endtime=<%= query.db_endtime%>" >Select</a>
                             </div>
                         </li>

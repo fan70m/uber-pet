@@ -75,7 +75,7 @@ sql.query = {
     AND $3 IN (SELECT distinct animalname FROM AnimalSpecies natural join AnimalServices where AnimalServices.caretakerid = avails.caretakerid)) \
   SELECT caretakerid, rate, price, starttime, endtime FROM all_possible_caretakers INNER JOIN caretakers ON caretakers.userid = all_possible_caretakers.caretakerid;",
 
-  find_pets: "SELECT petid, petname, specieid FROM pets WHERE ownerid = (SELECT userid FROM users WHERE username = $1);",
+  find_pets: "SELECT petid, petname, animalname FROM pets as P inner join animalspecies as A ON P.specieid = A.animalid WHERE ownerid = (SELECT userid FROM users WHERE username = $1);",
 
   find_price: "SELECT price FROM caretakers where caretakerid = $1;",
 
