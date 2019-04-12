@@ -86,8 +86,8 @@ sql.query = {
   FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
   where P.ownerid = (select userid from users where username = $1);",
 
-  find_spending_on_each_caretaker: "SELECT U.username, sum(C.price)\
-  FROM Appointments as A inner join Users as U on A.caretakerid = U.userid natural join Caretakers as C inner join Pets as P on A.petid = P.petid\
+  find_spending_on_each_caretaker: "SELECT U.username, sum(A.priceperday * (A.endtime - A.starttime + 1))\
+  FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
   where P.ownerid = (select userid from users where username = $1)\
   GROUP BY U.username;",
 
