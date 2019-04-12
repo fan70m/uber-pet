@@ -79,12 +79,46 @@ COMMIT TRANSACTION;
 -- INSERT INTO Petowners (userid)
 -- VALUES (3);
 
+CREATE TABLE AnimalSpecies (
+	animalid SERIAL PRIMARY KEY,
+	animalname varchar(64) NOT NULL
+);
+
+INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
+INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
+INSERT INTO AnimalSpecies (animalname) VALUES ('goldfish');
+INSERT INTO AnimalSpecies (animalname) VALUES ('rabbit');
+INSERT INTO AnimalSpecies (animalname) VALUES ('hamster');
+INSERT INTO AnimalSpecies (animalname) VALUES ('other');
+
 CREATE TABLE Caretakers (
 	userid integer PRIMARY KEY,
 	rate integer NULL,
 	price integer NOT NULL,
 	FOREIGN KEY (userid) REFERENCES Users(userid)
 );
+
+CREATE TABLE AnimalServices (
+	animalid INTEGER NOT NULL,
+	caretakerid integer NOT NULL,
+	FOREIGN KEY (animalid) REFERENCES AnimalSpecies(animalid),
+	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid),
+	PRIMARY KEY (animalid, caretakerid)
+);
+
+CREATE OR REPLACE FUNCTION add_default_pets() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+ INSERT INTO AnimalServices(animalid, caretakerid)
+ VALUES ((select animalid from animalspecies where animalname = 'goldfish'), new.userid);
+ INSERT INTO AnimalServices(animalid, caretakerid)
+ VALUES ((select animalid from animalspecies where animalname = 'hamster'), new.userid);
+ RETURN new;
+END;
+$BODY$
+language plpgsql;
+
+CREATE TRIGGER add_default_pets AFTER INSERT ON Caretakers FOR EACH ROW EXECUTE PROCEDURE add_default_pets();
 
 INSERT INTO Caretakers(userid,rate,price)
 VALUES(1,4,20);
@@ -97,15 +131,14 @@ VALUES(5,17);
 INSERT INTO Caretakers(userid,price)
 VALUES(6,18);
 
-CREATE TABLE AnimalSpecies (
-	animalid SERIAL PRIMARY KEY,
-	animalname varchar(64) NOT NULL
-);
-
-INSERT INTO AnimalSpecies (animalname) VALUES ('dog');
-INSERT INTO AnimalSpecies (animalname) VALUES ('cat');
-INSERT INTO AnimalSpecies (animalname) VALUES ('rabbit');
-INSERT INTO AnimalSpecies (animalname) VALUES ('other');
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 1);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 1);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 2);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 4);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 4);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 5);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 6);
+INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 6);
 
 CREATE TABLE Pets(
 	petid SERIAL PRIMARY KEY,
@@ -156,23 +189,6 @@ INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
 VALUES (2, 2, '2019-03-22', '2019-03-23');
 INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
 VALUES (4, 4, '2019-04-01', '2019-04-01');
-
-CREATE TABLE AnimalServices (
-	animalid INTEGER NOT NULL,
-	caretakerid integer NOT NULL,
-	FOREIGN KEY (animalid) REFERENCES AnimalSpecies(animalid),
-	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid),
-	PRIMARY KEY (animalid, caretakerid)
-);
-
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 1);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 1);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 2);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 4);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 4);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 5);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (1, 6);
-INSERT INTO AnimalServices (animalid, caretakerid) VALUES (2, 6);
 
 CREATE TABLE Caretakeravailabilities(
 	caretakerid integer NOT NULL,
