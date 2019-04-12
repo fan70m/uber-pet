@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>Tours</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="keywords" content=""/>
+        <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <link href="css/fontawesome-all.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    </head>
+    <body class="position-relative">
+        <!--/banner-w3layouts-sec-->
+        <div class="banner-w3layouts two">
+            <header>
+                <%- include navbar.ejs %>
+            </header>
+            <!--banner-w3layouts-->
+            <h3 class="font-weight-bold bg-light text-white text-xl-center">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Profile for Pet Owner</h3>
+            <div class="banner-w3layouts-info two">
+                <!--/search_form -->
+                <div id="banner-w3layouts-info" class="search_top text-center">
+                    <p></p>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Become a caretaker</li>
+                    </ol>
+                </div>
+                <!--//banner-w3layouts-info -->
+            </div>
+            <!--//banner-w3layouts-->
+                </div>
+        <!--/main-->
+                <div id="content-wrapper">
+                        <div class="container-fluid">
+                            <% if (iscaretaker) {%>
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <i class="fas fa-address-card"></i> &nbsp; Add an availability
+                                </div>
+                                <form method="post" action="/insert_avails">
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label for="startime" class="col-sm-2 col-form-label"><b>Start Time</b></label>
+                                            <div class="col-sm-4">
+                                                <input type="date" id="starttime" name="starttime" value="2019-04-01" min="2019-04-01" max="2019-12-31"><span style="font-size: 0.9em;">&nbsp;</span>
+                                            </div>
+                                            <label for="firstname" class="col-sm-2 col-form-label"><b>End Time</b></label>
+                                            <div class="col-sm-4">
+                                                <input type="date" id="endtime" name="endtime" value="2019-04-01" min="2019-04-01" max="2019-12-31"><span style="font-size: 0.9em;">&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer small text-muted"><button type="submit" class="btn btn-primary bg-warning mt-2">Add Availability</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= info_msg %></span></div>
+                                </form>
+                            </div>
+                            <div class="card mb-3">
+                                    <div class="card-header">
+                                        <i class="fas fa-address-card"></i> &nbsp; Update your Price per Day
+                                    </div>
+                                    <form method="post" action="/update_price">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter an integer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer small text-muted"><button type="submit" class="btn btn-primary bg-warning mt-2">Update Price</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= info_msg %></span></div>
+                                    </form>
+                            </div>
+                            <% } else {%>
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <i class="fas fa-address-card"></i> &nbsp; Create Caretaker Account
+                                    </div>
+                                    <form method="post" action="/create_caretaker">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label for="price" class="col-sm-2 col-form-label">Please enter your Price per Day  </label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter an integer">
+                                                </div>
+                                            </div>
+                                            <p>By default, you can take care of goldfish and hamsters. You can add mor animals (dog, cat) later in your dashboard.</p>
+                                        </div>
+                                        <div class="card-footer small text-muted"><button type="submit" class="btn btn-primary bg-warning mt-2">Create Account</button> &nbsp;&nbsp;&nbsp; <span class="badge badge-pill badge-info"><%= info_msg %></span></div>
+                                    </form>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+        <!--//main-->
+        <!--footer-->
+        <footer>
+            <%- include footer.ejs %>
+        </footer>
+        <!---->
+        <!-- /.footer -->
+        <!-- js -->
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <!-- //js -->
+        <!-- password-script -->
+        <script>
+        window.onload = function () {
+            document.getElementById("password1").onchange = validatePassword;
+            document.getElementById("password2").onchange = validatePassword;
+        }
+
+        function validatePassword() {
+            var pass2 = document.getElementById("password2").value;
+            var pass1 = document.getElementById("password1").value;
+            if (pass1 != pass2)
+                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+            else
+                document.getElementById("password2").setCustomValidity('');
+            //empty string means no validation error
+        }
+    </script>
+        <!-- //password-script -->
+        <!--/ start-smoth-scrolling -->
+        <script src="js/move-top.js"></script>
+        <script src="js/easing.js"></script>
+        <script>
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
+    </script>
+        <!--// end-smoth-scrolling -->
+        <script>
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                    containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+        <!-- //Custom-JavaScript-File-Links -->
+        <script src="js/bootstrap.js"></script>
+    </body>
+</html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Uber Pet</title>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="stylesheets/index.css" rel="stylesheet">
+  </head>

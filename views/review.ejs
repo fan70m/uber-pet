@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="keywords" content=""/>
+        <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="css/single.css" type="text/css" media="screen" property=""/>
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <link href="css/fontawesome-all.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    </head>
+    <body>
+        <!--/banner-w3layouts-sec-->
+        <div class="banner-w3layouts two">
+            <header>
+              <%- include navbar.ejs %>
+            </header>
+            <!--banner-w3layouts-->
+            <div class="banner-w3layouts-info two">
+                <!--/search_form -->
+                <div id="banner-w3layouts-info" class="search_top text-center">
+                    <p>Rate your order</p>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Review</li>
+                    </ol>
+                </div>
+                <!--//banner-w3layouts-info -->
+            </div>
+            <!--//banner-w3layouts-->
+        </div>
+        <!--/main-->
+        <!--//banner-w3layouts-->
+        <section class="banner-w3layouts-bottom py-lg-5 py-3">
+            <div class="container py-lg-4 py-3">
+                <h4 class="tittle text-center mx-auto mb-lg-5 mb-3 ">Review for order <%= query.appointmentid %></h4>
+                <div class="row">
+                    <div class="col-lg-7 left-blog-info text-left">
+                        <div class="comment-top">
+                            <h4>Leave a Comment</h4>
+                            <div class="comment-bottom">
+                                <form action="/rate?appointmentid=<%= query.appointmentid %>" method="post">
+                                    <textarea class="form-control" name="message" placeholder="Message..." required="false"></textarea>
+                                    <h4 style="color: #494646;" class="col-lg-auto mt-5">Rate your pet care-taker: 1 is lowest, 5 is highest</h4>
+                                    <select name="rate" class="form-control form-control-lg font-italic mt-4 border border-dark" id="country12" height="92" width="92" required="true">
+                                        <option>5</option>
+                                        <option>4</option>
+                                        <option>3</option>
+                                        <option>2</option>
+                                        <option>1</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--//main-->
+        <!--footer-->
+        <footer>
+          <%- include footer.ejs %>
+        </footer>
+        <!---->
+        <!-- /.footer -->
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <!-- carousel -->
+        <script src="js/owl.carousel.js"></script>
+        <script>
+		$(document).ready(function () {
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				margin: 10,
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 1,
+						nav: true
+					},
+					600: {
+						items: 2,
+						nav: false
+					},
+					900: {
+						items: 3,
+						nav: false
+					},
+					1000: {
+						items: 4,
+						nav: true,
+						loop: false,
+						margin: 20
+					}
+				}
+			})
+		})
+	</script>
+        <!-- //carousel -->
+        <!-- stats -->
+        <script src="js/jquery.waypoints.min.js"></script>
+        <script src="js/jquery.countup.js"></script>
+        <script>
+		$('.counter').countUp();
+	</script>
+        <!-- //stats -->
+        <!-- flexSlider -->
+        <script defer src="js/jquery.flexslider.js"></script>
+        <script>
+		$(window).load(function () {
+			$('.flexslider').flexslider({
+				animation: "slide",
+				start: function (slider) {
+					$('body').removeClass('loading');
+				}
+			});
+		});
+	</script>
+        <!-- //flexSlider -->
+        <!-- start-smooth-scrolling -->
+        <script src="js/move-top.js"></script>
+        <script src="js/easing.js"></script>
+        <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+        <!-- //end-smooth-scrolling -->
+        <!-- dropdown nav -->
+        <script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+	</script>
+        <!-- //dropdown nav -->
+        <!-- smooth-scrolling-of-move-up -->
+        <script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+			    containerID: 'toTop', // fading element id
+			    containerHoverID: 'toTopHover', // fading element hover id
+			    scrollSpeed: 1200,
+			    easingType: 'linear'
+			};
+			*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+        <!-- //smooth-scrolling-of-move-up -->
+        <script src="js/bootstrap.js"></script>
+        <!-- js file -->
+    </body>
+</html>

@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="keywords" content=""/>
+        <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property=""/>
+        <link rel="stylesheet" href="css/owl.carousel.css" type="text/css" media="all">
+        <link rel="stylesheet" href="css/owl.theme.css" type="text/css" media="all">
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <link href="css/fontawesome-all.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    </head>
+    <body>
+        <!--/banner-w3layouts-sec-->
+        <div class="banner-w3layouts two">
+            <header>
+                <%- include navbar.ejs %>
+            </header>
+            <!--banner-w3layouts-->
+            <div class="banner-w3layouts-info two">
+                <!--/search_form -->
+                <div id="banner-w3layouts-info" class="search_top text-center">
+                    <p>Last step!</p>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Order confirmation</li>
+                    </ol>
+                </div>
+                <!--//banner-w3layouts-info -->
+            </div>
+            <!--//banner-w3layouts-->
+        </div>
+        <!--/main-->
+        <!--/banner-w3layouts-bottom -->
+        <section class="banner-w3layouts-bottom py-lg-5 py-3" style="margin-bottom: 30px;">
+            <div class="container py-lg-4 py-3">
+                <h3 class="tittle text-center mx-auto mb-lg-5 mb-3 ">Confirm the following</h3>
+                <div class="card-deck text-center row">
+                  <p>You are paying <%= price %>$ for caretaker <%= caretakerid %> for your pet <%= data.rows[0].petname %> from <%= starttime %> to <%= endtime %></p>
+                </div>
+                <a href="/pricing?price=<%= price %>&petid=<%= petid %>&caretakerid=<%= caretakerid %>&starttime=<%= starttime %>&endtime=<%= endtime %>&db_starttime=<%=db_starttime%>&db_endtime=<%=db_endtime%>">Confirm</a>
+            </div>
+        </section>
+        <!--//banner-w3layouts-bottom -->
+        <footer>
+          <%- include footer.ejs %>
+        </footer>
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <!-- start-smooth-scrolling -->
+        <script src="js/move-top.js"></script>
+        <script src="js/easing.js"></script>
+        <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+        <!-- //end-smooth-scrolling -->
+        <!-- dropdown nav -->
+        <script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+	</script>
+        <!-- //dropdown nav -->
+        <!-- smooth-scrolling-of-move-up -->
+        <script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+        <!-- //smooth-scrolling-of-move-up -->
+        <script src="js/bootstrap.js"></script>
+        <!-- js file -->
+    </body>
+</html>

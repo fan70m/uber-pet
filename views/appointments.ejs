@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>Lists</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="keywords" content=""/>
+        <script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+        <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css">
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <link href="css/fontawesome-all.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    </head>
+    <body>
+        <!--/banner-w3layouts-sec-->
+        <div class="banner-w3layouts two">
+            <header>
+				<%- include navbar.ejs %>
+            </header>
+            <!--banner-w3layouts-->
+            <div class="banner-w3layouts-info two">
+                <!--/search_form -->
+                <div id="banner-w3layouts-info" class="search_top text-center">
+                    <p>All of your appointments</p>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">list of results</li>
+                    </ol>
+                </div>
+                <!--//banner-w3layouts-info -->
+            </div>
+            <!--//banner-w3layouts-->
+        </div>
+        <!--/main-->
+        <!--/projects -->
+        <%
+        formatDate = function(date) {
+            var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+        %>
+        <section class="banner-w3layouts-bottom py-lg-5 py-3" style="text-transform: none;">
+            <div class="container-fluid py-lg-4 py-3">
+                <h3 class="tittle text-center mx-auto mb-lg-4 mb-3">List of appointments</h3>
+                <ul class="portfolio-area clearfix">
+                    <% for (var i = 0; i < data.rows.length; i++) { %>
+                        <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
+                            <div>
+                                <p>Caretaker Name: <%= data.rows[i].first_name %> <%= data.rows[i].last_name %></p>
+                                <p>Caretaker Email: <%= data.rows[i].username %></p>
+                                <p>Pet Name: <%= data.rows[i].petname %></p>
+                                <p>Start Time: <%= formatDate(data.rows[i].starttime) %></p>
+                                <p>End Time: <%= formatDate(data.rows[i].endtime) %></p>
+                                <a href="/review?appointmentid=<%=data.rows[i].appointmentid%>">Rate&Review</a>
+                            </div>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </section>
+        <footer style="background-color: rgba(15, 14, 15, 0.51);">
+            <%- include footer.ejs %>
+        </footer>
+        <script src="js/jquery-2.2.3.min.js"></script>
+        <!-- dropdown nav -->
+        <script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+	</script>
+        <!-- //dropdown nav -->
+        <!-- smooth-scrolling-of-move-up -->
+        <script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+			*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+        <!-- //smooth-scrolling-of-move-up -->
+        <!-- start-smooth-scrolling -->
+        <script src="js/move-top.js"></script>
+        <script src="js/easing.js"></script>
+        <script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+        <!-- //end-smooth-scrolling -->
+        <script src="js/bootstrap.js"></script>
+        <!-- js file -->
+        <!-- jQuery-Photo-filter-lightbox-Gallery-plugin -->
+        <script src="js/jquery-1.7.2.js"></script>
+        <script src="js/jquery.quicksand.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/jquery.prettyPhoto.js"></script>
+        <!-- //jQuery-Photo-filter-lightbox-Gallery-plugin -->
+    </body>
+</html>

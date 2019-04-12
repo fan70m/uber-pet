@@ -27,79 +27,46 @@
               <%- include navbar.ejs %>
             </header>
             <!--banner-w3layouts-->
-            <div class="container py-lg-4 py-3 align-middle">
-              <h3 class="text-white text-center">Log in&nbsp;</h3>
-            </div>
-            <ol class="breadcrumb justify-content-center">
-                <li class="breadcrumb-item">
-                    <a href="/">Home</a>
-                </li>
-                <li class="breadcrumb-item active">Log in</li>
-            </ol>
             <div class="banner-w3layouts-info two">
                 <!--/search_form -->
-                <div id="banner-w3layouts-info" class="search_top text-center"> </div>
+                <div id="banner-w3layouts-info" class="search_top text-center">
+                    <p>Description of your order</p>
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item">
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Order</li>
+                    </ol>
+                </div>
                 <!--//banner-w3layouts-info -->
             </div>
             <!--//banner-w3layouts-->
         </div>
         <!--/main-->
-				<!--/banner-w3layouts-bottom -->
-
-				<div class="card card-register mx-auto mt-5">
-					<div class="card-header">Register an Account</div>
-					<div class="card-body">
-						<form action="/reg_user" method="post">
-							<div class="form-group">
-								<div class="form-row">
-									<div class="col-md-6">
-										<div class="form-label-group">
-											<input type="text" id="firstName" class="form-control" placeholder="First name" required="required" autofocus="autofocus" name="firstname">
-											<label for="firstName">First name</label>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-label-group">
-											<input type="text" id="lastName" class="form-control" placeholder="Last name" required="required" name="lastname">
-											<label for="lastName">Last name</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="form-label-group">
-									<input type="text" id="username" class="form-control" placeholder="Email address" required="required" name="username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
-									<label for="username">Email</label>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="form-row">
-									<div class="col-md-12">
-										<div class="form-label-group">
-											<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password">
-											<label for="inputPassword">Password</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="form-label-group">
-									<label for="location" class="text-dark">Location</label>
-									<select class="form-control" id="location" required="required" name="location">
-											<option>Singapore</option>
-											<option>Taipei</option>
-									</select>
-								</div>
-							</div>
-							<button class="btn btn-primary btn-block" type="submit">Register</button>
-						</form>
-						<div class="text-center">
-							<a class="d-block small mt-3" href="/">Back to home</a>
-							<a class="d-block small" href="">Forgot Password?(doesn't work for now)</a> <!--To implement later-->
-						</div>
-					</div>
-				</div>
         <!--/main-->
+        <section class="banner-w3layouts-bottom py-lg-5 py-3" style="margin-bottom: 0px;">
+            <div class="container py-lg-4 py-3">
+                <h3 class="tittle text-center mx-auto mb-lg-5 mb-3 ">Order Details #xxxx</h3>
+                <div class="card-deck text-center row">
+                    <div class="price-info-grid col-lg-6">
+                        <div class="price-inner">
+                            <div class="price-header">
+                                <h4>Pet info</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price-info-grid col-lg-6 my-lg-0 my-3">
+                        <div class="price-inner">
+                            <div class="price-header">
+                                <h4>Care-taker info</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/pricing" class="float-right text-dark font-weight-bold bg-info mw-100 h-50 border border-secondary align-middle p-2 text-center mt-2 mb-auto mr-5 w-25">Make payment</a>
+            <a href="/listings" class="float-right text-dark font-weight-bold bg-info mw-100 h-50 border border-secondary align-middle p-2 text-center mt-2 mb-auto mr-5 w-25">Reselect care-taker</a>
+        </section>
         <footer style="background-color: rgba(15, 14, 15, 0.51);">
           <%- include footer.ejs %>
         </footer>
