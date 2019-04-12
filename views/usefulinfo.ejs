@@ -45,32 +45,15 @@
         </div>
         <!--/main-->
         <!--/projects -->
-        <%
-        formatDate = function(date) {
-            var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
-        %>
         <section class="banner-w3layouts-bottom py-lg-5 py-3" style="text-transform: none;">
             <div class="container-fluid py-lg-4 py-3">
-                <h3 class="tittle text-center mx-auto mb-lg-4 mb-3">List of appointments</h3>
+                <h3 class="tittle text-center mx-auto mb-lg-4 mb-3">How much you spend on each Caretaker</h3>
                 <ul class="portfolio-area clearfix">
                     <% for (var i = 0; i < data.rows.length; i++) { %>
                         <li class="portfolio-item2" data-id="id-1" data-type="cat-item-2">
                             <div>
-                                <p>Caretaker Name: <%= data.rows[i].first_name %> <%= data.rows[i].last_name %></p>
                                 <p>Caretaker Email: <%= data.rows[i].username %></p>
-                                <p>Pet Name: <%= data.rows[i].petname %></p>
-                                <p>Start Time: <%= formatDate(data.rows[i].starttime) %></p>
-                                <p>End Time: <%= formatDate(data.rows[i].endtime) %></p>
-                                <a href="/review?appointmentid=<%=data.rows[i].appointmentid%>">Rate&Review</a>
+                                <p>How much you spend: <%= data.rows[i].sum %></p>
                             </div>
                         </li>
                     <% } %>

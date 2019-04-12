@@ -25,7 +25,8 @@ function initRouter(app) {
 	app.get('/userinfo', loggedIn, userinfo);
 	app.get('/caretakerinfo', loggedIn, caretakerinfo);
 	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
-	app.get('/appointments', passport.authMiddleware(), appointments);
+	app.get('/appointments', loggedIn, appointments);
+	app.get('/usefulinfo', loggedIn, usefulinfo);
 	app.get('/register' , passport.antiMiddleware(), register );
 	// app.get('/password' , passport.antiMiddleware(), retrieve ); <-- add this later
 	app.get('/confirmation', passport.authMiddleware(), confirmation);
@@ -146,6 +147,19 @@ function appointments(req, res, next) {
 		} else {
 			console.log(data);
 			res.render('appointments', { page: 'appointments', auth: true, data: data });
+		}
+	})
+}
+
+function usefulinfo(req, res, next) {
+	var username = req.user.username;
+	pool.query(sql_query.query.find_spending_on_each_caretaker, [username], (err, data) => {
+		if(err) {
+			console.error("Error in find_spending_on_each_caretaker", err);
+			res.redirect('/?info=fail');
+		} else {
+			console.log(data);
+			res.render('usefulinfo', { page: 'usefulinfo', auth: true, data: data });
 		}
 	})
 }
