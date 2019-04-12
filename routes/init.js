@@ -20,11 +20,8 @@ function initRouter(app) {
 	app.get('/loginfail', loginfail);
 
   /* PROTECTED GET */
-	// app.get('/ownerdashboard', passport.authMiddleware(), ownerdashboard);
-	app.get('/pets', passport.authMiddleware(), pets);
 	app.get('/userinfo', loggedIn, userinfo);
 	app.get('/caretakerinfo', loggedIn, caretakerinfo);
-	// app.get('/caretakerdashboard', passport.authMiddleware(), caretakerdashboard);
 	app.get('/appointments', loggedIn, appointments);
 	app.get('/usefulinfo', loggedIn, usefulinfo);
 	app.get('/register' , passport.antiMiddleware(), register );
