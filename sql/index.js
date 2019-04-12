@@ -35,13 +35,13 @@ sql.query = {
 
   //Transaction doesn't work
   make_matching: "START TRANSACTION;\
-  INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);\
+  INSERT INTO Appointments(petid, caretakerid, starttime, endtime, priceperday) VALUES ($1, $2, $3, $4,(select price from caretakers where userid=$1));\
   UPDATE Accounts SET balance = balance + $5 WHERE userid = $2;\
   UPDATE Accounts SET balance = balance - $5 WHERE userid = (select ownerid from pets where petid = $1);\
   COMMIT TRANSACTION;",
 
   //Plan B
-  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime) VALUES ($1, $2, $3, $4);",
+  make_appointment: "INSERT INTO Appointments(petid, caretakerid, starttime, endtime, priceperday) VALUES ($1, $2, $3, $4, $5);",
 
   increase_caretaker_account: "UPDATE Accounts SET balance = balance + $2 WHERE userid = $1;",
 
@@ -82,7 +82,7 @@ sql.query = {
   find_petname: "SELECT petname FROM pets where petid = $1;",
 
   //find all appointments based on owner id
-  find_appointments: "SELECT U.first_name, U.last_name, U.username, A.starttime, A.endtime, P.petname, A.appointmentid\
+  find_appointments: "SELECT U.first_name, U.last_name, U.username, A.starttime, A.endtime, A.priceperday, P.petname, A.appointmentid\
   FROM Appointments as A inner join Users as U on A.caretakerid = U.userid inner join Pets as P on A.petid = P.petid\
   where P.ownerid = (select userid from users where username = $1);",
 

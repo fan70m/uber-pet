@@ -118,7 +118,7 @@ function caretakerinfo(req, res, next) {
 	var username = req.user.username;
 	pool.query(sql_query.query.is_caretaker, [username], (err, data) => {
 		if(err) {
-			console.error("Error in find appointments", err);
+			console.error("Error in is_caretaker", err);
 			res.redirect('/?info=fail');
 		} else {
 			console.log(data);
@@ -184,7 +184,7 @@ function choose_pet(req, res, next) {
 			console.error("Error in find pets", err);
 			res.redirect('/?info=fail');
 		} else {
-			console.log(data);
+			console.log(req.query);
 			res.render('choose_pet', { data: data, page: 'choose_pet', query: req.query,  auth: true });
 		}
 	})
@@ -198,7 +198,7 @@ function confirmation(req, res, next) {
 			console.error("Error in find pets", err);
 			res.redirect('/?info=fail');
 		} else {
-			console.log(data);
+			console.log(req.query);
 			res.render('confirmation', { page: 'confirmation', auth: true, data: data, ...req.query});
 		}
 	})
@@ -211,11 +211,20 @@ function pricing(req, res, next) {
 	var endtime = req.query.endtime;
 	var db_starttime = req.query.db_starttime;
 	var db_endtime = req.query.db_endtime;
-	var price = req.query.price;
 	console.log(req.query);
 
+	var date2 = new Date(starttime);
+	var date1 = new Date(endtime);
+	var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+	var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+	var price = req.query.price
+	var tot_price = parseInt(price) * (dayDifference + 1);
+
+	console.log("tot_price", tot_price);
+
 	//Plan B because cannot do a transaction
-	pool.query(sql_query.query.make_appointment, [petid, caretakerid, starttime, endtime], (err, data) => {
+	pool.query(sql_query.query.make_appointment, [petid, caretakerid, starttime, endtime, price], (err, data) => {
 		if(err) {
 			console.error("Error in make_appointment", err);
 			res.redirect('/?info=fail');
@@ -224,7 +233,7 @@ function pricing(req, res, next) {
 		}
 	})
 
-	pool.query(sql_query.query.increase_caretaker_account, [caretakerid, price], (err, data) => {
+	pool.query(sql_query.query.increase_caretaker_account, [caretakerid, tot_price], (err, data) => {
 		if(err) {
 			console.error("Error in increase_caretaker_account", err);
 			res.redirect('/?info=fail');
@@ -233,7 +242,7 @@ function pricing(req, res, next) {
 		}
 	})
 
-	pool.query(sql_query.query.decrease_petowner_account, [petid, price], (err, data) => {
+	pool.query(sql_query.query.decrease_petowner_account, [petid, tot_price], (err, data) => {
 		if(err) {
 			console.error("Error in decrease_petowner_account", err);
 			res.redirect('/?info=fail');

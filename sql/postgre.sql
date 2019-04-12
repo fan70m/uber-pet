@@ -177,18 +177,19 @@ CREATE TABLE Appointments(
 	caretakerid integer NOT NULL,
 	starttime date NOT NULL,
 	endtime date NOT NULL,
+	priceperday integer NOT NULL,
 	FOREIGN KEY (petid) REFERENCES Pets(petid),
 	FOREIGN KEY (caretakerid) REFERENCES Caretakers(userid)
 );
 
-INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
-VALUES (1, 1, '2019-02-01', '2019-02-15');
-INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
-VALUES (2, 2, '2019-03-12', '2019-03-20');
-INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
-VALUES (2, 2, '2019-03-22', '2019-03-23');
-INSERT INTO Appointments(petid, caretakerid, starttime, endtime)
-VALUES (4, 4, '2019-04-01', '2019-04-01');
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime, priceperday)
+VALUES (1, 1, '2019-02-01', '2019-02-15', (select price from caretakers where userid = 1));
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime, priceperday)
+VALUES (2, 2, '2019-03-12', '2019-03-20', (select price from caretakers where userid = 2));
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime, priceperday)
+VALUES (2, 2, '2019-03-22', '2019-03-23', (select price from caretakers where userid = 2));
+INSERT INTO Appointments(petid, caretakerid, starttime, endtime, priceperday)
+VALUES (4, 4, '2019-04-01', '2019-04-01', (select price from caretakers where userid = 4));
 
 CREATE TABLE Caretakeravailabilities(
 	caretakerid integer NOT NULL,
